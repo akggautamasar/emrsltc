@@ -1,0 +1,38 @@
+name: Browser smoke tests
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Install app
+        run: npm install --no-audit --no-fund
+      - name: Install test runner
+        run: npm install --no-save @playwright/test
+      - name: Install Chromium
+        run: npx playwright install chromium --with-deps
+      - name: Build
+        run: npm run build
+      - name: Smoke test all exports
+        run: npx playwright test
+      - name: Upload diagnostic report on failure
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: emrs-playwright-results
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

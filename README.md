@@ -5,7 +5,7 @@ A free, responsive, browser-based claim form portal for Eklavya Model Residentia
 ## Forms available
 
 1. **LTC Claim Form** — Part A employee details, family members, journey entries, advance, higher-class/road particulars, declarations and office-use details based on the provided 2-page LTC claim format.
-2. **Medical Reimbursement** — employee/dependent medical **claim register** based on the uploaded one-page medical claim statement. The uploaded medical PDF is not an individual claim application; the dashboard identifies it as a register and does not invent statutory fields.
+2. **Medical Reimbursement** — actual **NESTS Annexure-I Medical Reimbursement Claim Form** from the NESTS Medical Attendance Rules, 2024 circular dated 23 December 2024. Guided fields for Medical Card holder, patient, hospital, CGHS empanelment, OPD/indoor treatment, emergency, insurance, advance, itemised totals and required declaration. PDF prints as a 2-page A4 portrait form; Word is editable with a page break, and Excel has two print-ready worksheets. The older medical claim register was replaced.
 3. **TA & DA Claim Form** — Travelling Allowance Bill based on the supplied EMRS Karanjiya 2-page TA proforma and the accompanying 15-sheet TA/DA sample workbook; trip rows, fares, mileage, daily allowance, actual expenses, net total and original certification sections.
 
 Each form can be downloaded in **PDF, Word (.docx), and Excel (.xlsx)**. Native editable Word tables and Excel cells; white print backgrounds. PDF uses native vector text and tables with A4 layout. **TA/DA exports are exactly two A4 landscape sides**: front bill (20 columns, journeys, totals, particulars and disbursement) and reverse certificate. Excel has two white print worksheets; choose **Print Entire Workbook**, double-sided, landscape, flip on short edge. Up to 14 TA/DA journey entries are supported per two-sided bill; exporting more than 14 raises an explicit error instead of omitting data. The daily allowance rate supports percent text, and an optional amount override prevents assuming an official entitlement calculation.
@@ -35,3 +35,7 @@ Link this GitHub repository as a **Vite** site; default root directory `/`, buil
 This is a form-preparation aid. Downloaded claims must be verified against applicable service rules, admissibility entitlements, supporting bills and current institutional requirements before being submitted or signed. The site does not assert that a claim is approved.
 
 **EMRS Claim Forms by worksbeyond** · Made with ❤️ by AiR
+
+## Rules viewer
+
+The home page has a **Rules** button next to **Start form** for each form, and form editors have **View Rules**. For Medical Reimbursement, the searchable viewer summarises the uploaded NESTS Medical Attendance Rules, 2024 (pages 1–12) by topic, and links to the [official NESTS circular PDF](https://nests.tribal.gov.in/WriteReadData/RTF1984/1735100833.pdf). LTC and TA/DA buttons clearly show template guidance because separate authoritative LTC/TA rules were not provided. Review all later NESTS instructions before submission.

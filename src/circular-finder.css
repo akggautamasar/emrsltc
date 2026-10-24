@@ -125,3 +125,43 @@
 }
 @media(max-width:375px){.cf-filter-grid{grid-template-columns:1fr}.cf-card-actions .cf-action{padding:9px 10px;font-size:10px}.cf-status-actions{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.cf-spin{animation:none}.cf-card,.cf-action,.cf-field input,.cf-field select{transition:none!important;transform:none!important}}
+
+/* Dashboard entry point, harmonised with existing navy glass CTAs. */
+.cf-dashboard-invite{
+  display:flex;align-items:center;flex-wrap:wrap;gap:17px;
+  padding:22px 25px;margin-top:34px;
+  border:1px solid #bedce9;border-radius:18px;
+  background:radial-gradient(circle at 0% 15%,#e0f7f2,transparent 42%),linear-gradient(130deg,#fff,#edf6fb);
+  box-shadow:0 10px 29px #0c354b13;
+}
+.cf-dashboard-invite-icon{
+  width:56px;height:56px;flex:0 0 56px;
+  border-radius:17px;background:linear-gradient(145deg,#c9f8f0,#a4d3e9);
+  color:#0b6877;display:grid;place-items:center;
+  box-shadow:inset 0 2px 2px #fff,0 6px 15px #0e496421;
+}
+.cf-dashboard-invite>div:nth-child(2){flex:1;min-width:180px}
+.cf-dashboard-invite .section-kicker{color:#178d87;font-size:10px}
+.cf-dashboard-invite h3{font:850 18px Manrope,sans-serif;margin:5px 0 6px;color:#123754;letter-spacing:-.5px}
+.cf-dashboard-invite p{font-size:12px;color:#6a8093;margin:0;line-height:1.6}
+body .app .cf-dashboard-invite button{
+  border:1px solid #a0cbd9;border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:44px;padding:11px 16px;
+  color:white;font-size:12px;font-weight:850;white-space:nowrap;
+  background:linear-gradient(125deg,#147b8b,#103c6a 64%,#0b2a51);
+  box-shadow:inset 0 2px 2px #ffffff66,inset 0 -3px 6px #00244966,0 7px 17px #10476b29;
+}
+body .app .cf-dashboard-invite button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+/* Responsive navigation when many forms share the desktop header. */
+@media(min-width:761px){
+  body .app .nav{gap:12px}
+  body .app .nav-links{min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+  body .app .nav-links button{display:inline-flex;align-items:center;gap:5px}
+}
+@media(max-width:760px){
+  .cf-dashboard-invite{padding:17px;gap:12px}
+  .cf-dashboard-invite-icon{width:45px;height:45px;flex-basis:45px;border-radius:12px}
+  .cf-dashboard-invite>div:nth-child(2){min-width:calc(100% - 65px)}
+  .cf-dashboard-invite button{width:100%}
+}

@@ -259,7 +259,7 @@ function makeWorkbookFront(wb,d){
  for(let i=0;i<20;i++){const c=sh.getCell(8,i+1);c.value=i+1;c.font={name:'Arial',size:8,bold:true};c.alignment={horizontal:'center'}}sh.getRow(8).height=15;
  for(let i=0;i<MAX_ROWS;i++){
    const vals=d.rows[i]?journey(d.rows[i]):Array(20).fill('');
-   const r=9+i;for(let col=1;col<=20;col++){const c=sh.getCell(r,col);c.value=vals[col-1];c.alignment={vertical:'middle',horizontal:'center',wrapText:true};c.font={name:'Arial',size:7}}sh.getRow(r).height=19;
+   const r=9+i;for(let col=1;col<=20;col++){const c=sh.getCell(r,col);c.value=col===19&&d.rows[i]?num(taRowAmount(d.rows[i])):vals[col-1];if(col===19)c.numFmt='#,##0.##';c.alignment={vertical:'middle',horizontal:'center',wrapText:true};c.font={name:'Arial',size:7}}sh.getRow(r).height=19;
  }
  const totalAt=9+MAX_ROWS;
  span(totalAt,1,10,'TOTAL',true,20);
@@ -288,7 +288,7 @@ function makeWorkbookFront(wb,d){
   const c=sh.getCell(row,col);c.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFFFFFFF'}};
   if(!c.font)c.font={name:'Arial',size:8,color:{argb:'FF000000'}};
  }
- sh.printArea='A1:T'+last;
+ sh.pageSetup.printArea='A1:T'+last;
  sh.headerFooter.oddFooter='';sh.pageSetup.fitToHeight=1;
  return sh;
 }
@@ -317,7 +317,7 @@ function makeWorkbookBack(wb,d){
  officer.forEach(c=>line(c,c.length>130?44:27,false,10));
  line('',27);
  line('Dated: '+D(d.controllingDate)+' ................                   Signature ................................',27,false,10);
- sh.printArea='A1:A'+sh.rowCount;
+ sh.pageSetup.printArea='A1:A'+sh.rowCount;
  return sh;
 }
 async function makeExcel(d){

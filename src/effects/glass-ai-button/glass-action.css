@@ -13,3 +13,9 @@
 .emrs-glass-fallback{border-radius:999px!important;background:linear-gradient(130deg,#a7c2d9,#718da9)!important;border:1px solid #d5e9fa!important;color:white!important;box-shadow:inset 0 2px 3px #ffffff99,0 7px 18px #0c2c4a25!important;font-size:16px!important}
 .emrs-glass-action--compact{width:min(100%,390px);height:116px!important}
 @media(max-width:760px){.emrs-glass-action{height:110px!important;max-width:400px}.emrs-glass-action--compact{height:104px!important}}
+
+/* Match the ThreeUI projected pill instead of showing its rectangular study canvas. */
+.emrs-glass-action{height:122px!important;max-width:420px!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
+.emrs-glass-action iframe{width:100%!important;height:300px!important;left:0!important;top:50%!important;transform:translateY(-50%);clip-path:inset(33.3% 12.5% 33.3% 12.5% round 999px);background:transparent!important}
+.emrs-glass-action--compact{height:114px!important}
+@media(max-width:760px){.emrs-glass-action{height:112px!important}.emrs-glass-action--compact{height:108px!important}}

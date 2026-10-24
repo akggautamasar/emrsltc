@@ -45,7 +45,7 @@ function makePdf(d){
  const W=210,L=16,R=194,SW=R-L;
  pdf.setDrawColor(35);pdf.setTextColor(0);pdf.setLineWidth(.2);
  const put=(text,x,y,w,pt=9.1,bold=false,max=4)=>{
-  pdf.setFont('times',bold?'bold':'normal');let p=pt;
+  pdf.setFont('times',bold?'bold':'normal');pdf.setFontSize(pt);let p=pt;
   let lines=pdf.splitTextToSize(T(text),w);
   while(lines.length>max&&p>6){p-=.3;pdf.setFontSize(p);lines=pdf.splitTextToSize(T(text),w)}
   pdf.setFontSize(p);if(lines.length>max){lines=lines.slice(0,max);if(lines.length)lines[max-1]=lines[max-1].replace(/.$/,'…')}
@@ -133,6 +133,7 @@ function makePdf(d){
 
 // Word uses native edit-ready tables, page break, A4 paper.
 const border={style:BorderStyle.SINGLE,size:4,color:'555555'};
+const excelBorder={top:{style:'thin',color:{argb:'FF555555'}},left:{style:'thin',color:{argb:'FF555555'}},right:{style:'thin',color:{argb:'FF555555'}},bottom:{style:'thin',color:{argb:'FF555555'}}};
 const bd={top:border,bottom:border,left:border,right:border};
 const P=(txt,size=18,bold=false,align=AlignmentType.LEFT,after=100,extra={})=>new Paragraph({alignment:align,spacing:{before:0,after, line:240},...extra,children:[new TextRun({text:T(txt),font:'Times New Roman',size,bold})]});
 const C=(txt,width,size=16,bold=false)=>new TableCell({width:{size:width,type:WidthType.DXA},borders:bd,margins:{top:75,bottom:75,left:70,right:70},children:[P(txt,size,bold,AlignmentType.LEFT,0)]});
@@ -198,7 +199,7 @@ function makeSheet(book,name){
 function put(ws,row,c1,c2,value,{height=22,bold=false,align='left',bordered=false,size=10}={}){
  if(c1<c2)ws.mergeCells(row,c1,row,c2);
  const c=ws.getCell(row,c1);c.value=T(value);c.font={name:'Times New Roman',size,bold,color:{argb:'FF111111'}};c.alignment={horizontal:align,vertical:'middle',wrapText:true};c.fill=white;ws.getRow(row).height=Math.max(ws.getRow(row).height||0,height);
- if(bordered)c.border={top:border,left:border,right:border,bottom:border};
+ if(bordered)c.border=excelBorder;
 }
 function excelTable(ws,start,headers,rows){
  const all=[headers,...rows];

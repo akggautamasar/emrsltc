@@ -3,7 +3,11 @@
  * Never generates missing circulars, guessed reference numbers, dates or PDF links.
  * The NESTS origin is fixed (not caller supplied) to prevent SSRF.
  */
-const SOURCE = 'https://nests.tribal.gov.in/show_content.php?lang=1&level=1&ls_id=938&lid=373';
+const LISTINGS = [
+  {section:'General Circulars',key:'general',url:'https://nests.tribal.gov.in/show_content.php?lang=1&level=1&ls_id=938&lid=373'},
+  {section:'For Serving Employees',key:'employee',url:'https://nests.tribal.gov.in/show_content.php?lang=1&level=1&ls_id=851&lid=487'}
+];
+const SOURCE = LISTINGS[0].url;
 
 const htmlDecode = (input = '') => String(input)
   .replace(/&#(x[0-9a-f]+|\d+);?/gi, (_, code) => {
@@ -34,7 +38,7 @@ const fixDate = value => {
     dt.getUTCMonth() === Number(m) - 1 ? iso : '';
 };
 
-const extractPdf = row => {
+const extractPdf = (row, sourceUrl) => {
   // The NESTS table contains download anchors or onclick links. Only retain
   // explicit, authority-hosted links and never infer a PDF from a serial number.
   const decoded = htmlDecode(row).replace(/\\\//g, '/');
@@ -43,14 +47,14 @@ const extractPdf = row => {
   ];
   for (const match of matches) {
     try {
-      const url = new URL(match[0], SOURCE);
+      const url = new URL(match[0], sourceUrl);
       if (url.protocol !== 'https:' || !['nests.tribal.gov.in','www.nests.tribal.gov.in'].includes(url.hostname)) continue;
       return url.href;
     } catch { /* ignore invalid path */ }
   }
   return null;
 };
-function parseOfficial(html) {
+function parseOfficial(html, listing) {
   // Parse the publisher's own table rows, not any generated synthetic catalogue.
   const rows = [...html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)];
   const items = [];
@@ -66,9 +70,9 @@ function parseOfficial(html) {
     if (!date || title.length < 5 || seen.has(number)) continue;
     const allRow = cells.slice(3).join(' ') + ' ' + row;
     items.push({
-      id: 'general-' + number, number, circularNo: '#' + number,
-      date, title, pdfUrl: extractPdf(allRow), section: 'General Circulars',
-      listingUrl: SOURCE, source: 'official-live'
+      id: listing.key + '-' + number, number, circularNo: '#' + number,
+      date, title, pdfUrl: extractPdf(allRow, listing.url), section: listing.section,
+      listingUrl: listing.url, source: 'official-live'
     });
     seen.add(number);
   }
@@ -81,30 +85,39 @@ export default async function handler(req, res) {
     return res.status(405).json({error:'Method not allowed'});
   }
   res.setHeader('Cache-Control', 'public, s-maxage=14400, stale-while-revalidate=86400');
-  try {
-    const response = await fetch(SOURCE, {
-      method: 'GET',
-      redirect: 'follow',
-      headers: {
-        'User-Agent':'Mozilla/5.0 (compatible; EMRS-Circular-Finder/1.0; official-circular-index)',
-        'Accept':'text/html,application/xhtml+xml'
-      },
-      signal: AbortSignal.timeout(12000)
-    });
-    if (!response.ok) throw new Error('NESTS returned HTTP ' + response.status);
-    const html = await response.text();
-    const items = parseOfficial(html);
-    if (!items.length) throw new Error('No circular rows found in publisher markup');
-    return res.status(200).json({
-      source: SOURCE, sourceType:'official-live', updatedAt:new Date().toISOString(),
-      count:items.length, records:items
-    });
-  } catch (e) {
+  const outcomes = await Promise.all(LISTINGS.map(async listing => {
+    try {
+      const response = await fetch(listing.url, {
+        method:'GET', redirect:'follow',
+        headers:{
+          'User-Agent':'Mozilla/5.0 (compatible; EMRS-Circular-Finder/1.0; official-circular-index)',
+          'Accept':'text/html,application/xhtml+xml'
+        },
+        signal:AbortSignal.timeout(13500)
+      });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const items = parseOfficial(await response.text(), listing);
+      if (!items.length) throw new Error('No matching rows in publisher table');
+      return {section:listing.section, url:listing.url, records:items};
+    } catch (error) {
+      return {section:listing.section, url:listing.url, records:[],
+        error:String(error?.message || error).slice(0,180)};
+    }
+  }));
+  const records = outcomes.flatMap(x => x.records)
+    .sort((a,b) => b.date.localeCompare(a.date) || (b.number || 0) - (a.number || 0));
+  if (!records.length) {
     res.setHeader('Cache-Control', 'no-store');
     return res.status(503).json({
-      error:'Official NESTS listing is temporarily unavailable',
-      detail:String(e?.message || e).slice(0,220), source:SOURCE,
-      records:[], sourceType:'unavailable'
+      error:'Official NESTS circular listings could not be read',
+      sourceType:'unavailable',
+      sources:outcomes.map(({section,url,error})=>({section,url,error})),
+      records:[]
     });
   }
+  return res.status(200).json({
+    sourceType:'official-live', updatedAt:new Date().toISOString(),
+    sources:outcomes.map(({section,url,error,records})=>({section,url,error,count:records.length})),
+    count:records.length, records
+  });
 }

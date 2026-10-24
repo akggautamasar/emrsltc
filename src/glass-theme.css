@@ -1,0 +1,21 @@
+/* EMRSLTC visual refresh — preserves document export and form semantics */
+:root{--glass-blue:#174d9b;--glass-ink:#13294b}
+body{background:radial-gradient(ellipse 90% 48% at 80% -12%,#d5e7ff 0%,transparent 75%),#f5f8fd}
+.site-header{background:rgba(248,251,255,.83)!important;backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.9);box-shadow:0 8px 30px #254b7c0c}
+.hero{background:radial-gradient(ellipse at 80% 25%,#d3e6ff 0%,transparent 58%),linear-gradient(145deg,#f7fbff,#edf4ff)}
+.hero h1{letter-spacing:-.055em}
+.form-card,.side-card,.form-section,.repeat-card,.steps>div{border:1px solid rgba(255,255,255,.94)!important;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(240,247,255,.83))!important;box-shadow:0 12px 34px #193d7512, inset 0 1px 0 #fff!important;backdrop-filter:blur(12px);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.form-card:hover{transform:translateY(-7px);box-shadow:0 24px 46px #173e7522, inset 0 1px 0 #fff!important;border-color:#b5d2ff!important}
+.card-icon,.brand-mark,.section-icon{box-shadow:inset 0 1px 0 #fff9,0 8px 20px #214d8d1a}
+.primary-btn,.start-card-button,.rules-card-button,.editor-rules-button,.download-buttons button,.nav-links button,.add-button{transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease}
+.primary-btn{position:relative;overflow:hidden;border:1px solid #7faef0!important;border-radius:15px!important;background:linear-gradient(145deg,#337de2 0%,#1b54b3 52%,#10367c 100%)!important;color:white!important;box-shadow:inset 0 2px 1px #ffffff77,inset 0 -4px 10px #001d5d77,0 10px 24px #2359ae55!important;text-shadow:0 1px 3px #0b357b}
+.primary-btn:before{content:"";position:absolute;inset:1px 1px 52% 1px;border-radius:inherit;background:linear-gradient(#ffffff4a,#ffffff00);pointer-events:none}
+.primary-btn:hover{transform:translateY(-3px);box-shadow:inset 0 2px 1px #ffffff88,0 15px 28px #2359ae66!important}
+.primary-btn:active,.start-card-button:active,.download-buttons button:active{transform:translateY(1px) scale(.985)}
+.card-bottom .start-card-button{border:1px solid #a9c8f5;background:linear-gradient(155deg,#eaf5ff,#c9e1ff);border-radius:12px;padding:10px 13px;color:#174b90;box-shadow:inset 0 2px 1px #fff,0 5px 13px #25569d20}
+.card-bottom .rules-card-button{border:1px solid #e1e9f6;background:#ffffffb8;border-radius:12px;padding:10px 12px}
+.card-bottom button:hover,.editor-rules-button:hover,.download-buttons button:hover{transform:translateY(-2px);box-shadow:0 9px 19px #1c559522}
+.download-buttons button{border-radius:13px;background:linear-gradient(130deg,#fff,#edf5ff);box-shadow:inset 0 1px 0 #fff,0 4px 10px #224d7a0d}
+button:focus-visible{outline:3px solid #508be9;outline-offset:3px}
+@media(hover:none){.form-card:hover,.primary-btn:hover,.card-bottom button:hover,.download-buttons button:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.form-card,.side-card,.form-section,.repeat-card,.steps>div,.primary-btn,.start-card-button,.rules-card-button,.editor-rules-button,.download-buttons button,.nav-links button,.add-button{transition:none!important;transform:none!important}}

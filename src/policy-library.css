@@ -99,3 +99,32 @@
 @media(prefers-reduced-motion:reduce){
   .policy-source-card,.policy-chevron{transition:none!important}
 }
+
+/* Prominent direct PDF access before the lengthy rules accordion. */
+.policy-quick-pdfs{
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  padding:12px 13px;margin:0 0 18px;border:1px solid #c2e1e8;
+  border-radius:12px;background:#f2fbfc;
+}
+.policy-quick-pdfs>strong{
+  display:inline-flex;align-items:center;gap:6px;
+  color:#183a59;font-weight:850;font-size:12px;margin-right:4px;
+}
+.policy-quick-pdfs>a{
+  display:inline-flex;align-items:center;gap:7px;max-width:100%;
+  border:1px solid #8abfe0;border-radius:999px;
+  padding:8px 11px;background:#fff;color:#17617e;
+  font-size:11px;font-weight:800;text-decoration:none;
+}
+.policy-quick-pdfs>a:hover{background:#e9f6fc;border-color:#198eae}
+.policy-source-jump{
+  border:0;background:transparent;color:#0e7a77;
+  padding:8px 10px;border-radius:8px;
+  font-size:11px;font-weight:850;text-decoration:underline;cursor:pointer;
+}
+.policy-source-jump:hover{background:#dcf6f4}
+@media(max-width:520px){
+  .policy-quick-pdfs{align-items:stretch}
+  .policy-quick-pdfs>strong{width:100%}
+  .policy-quick-pdfs>a{flex:1;justify-content:center}
+}

@@ -183,3 +183,11 @@
 .primary-btn.glass-pill--explore{--pill-w:186px}
 .primary-btn.glass-pill--other{--pill-w:199px}
 .primary-btn.glass-pill--applications{--pill-w:174px}
+
+/* Homepage paired glass CTAs: same finish and rotating orb, adaptive layout. */
+.hero-cta-row{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:0}
+.primary-btn.glass-pill--circulars{--pill-w:238px}
+@media(max-width:480px){
+  .hero-cta-row{gap:12px}
+  .hero-cta-row .primary-btn.glass-pill--circulars{--pill-w:238px}
+}

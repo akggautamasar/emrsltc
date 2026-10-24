@@ -121,3 +121,53 @@ test('TA/DA files are exactly two sides and retain bill column structure',async(
  expect(wb.worksheets[0].getCell('A1').value).toBe(institution);
  expect(wb.worksheets[1].getCell('A2').value).toBe(institution);
 });
+
+
+test('CEA / Hostel Subsidy shows from dashboard and opens detailed source rules',async({page})=>{
+ await page.goto('/');
+ const card=page.locator('.form-card').filter({hasText:'CEA / Hostel Subsidy'});
+ await expect(card.getByRole('button',{name:'Rules',exact:true})).toBeVisible();
+ await card.getByRole('button',{name:'Rules',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:/Children Education Allowance/});
+ await expect(dialog).toBeVisible();
+ await dialog.getByLabel('Search CEA rules').fill('third child');
+ await expect(dialog.getByText(/third child/i).first()).toBeVisible();
+ await expect(dialog.getByRole('link',{name:/Open full official NESTS PDF/})).toHaveAttribute('href',/nests\.tribal\.gov\.in/);
+ await dialog.getByRole('button',{name:'Back to forms'}).click();
+ await card.getByRole('button',{name:/Start form/}).click();
+ await expect(page.getByRole('heading',{name:'CEA / Hostel Subsidy'})).toBeVisible();
+ await page.getByRole('button',{name:'View Rules'}).click();
+ await expect(page.getByRole('dialog',{name:/Children Education Allowance/})).toBeVisible();
+});
+
+test('CEA Annexure-B has exact two-page PDF and two printable Word Excel sides',async({page})=>{
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/#cea');
+ await page.getByLabel('Claim financial year').fill('2025-26');
+ await page.getByLabel('1. Name of Employee').fill('Sample Parent');
+ await page.getByLabel('2. Designation').fill('TGT');
+ await page.getByLabel('3. Employee I.D. No.').fill('EMRS123');
+ await page.getByLabel('Child\'s name').first().fill('Example Child');
+ await page.getByLabel('Child\'s name').nth(3).fill('Example Child');
+ await page.getByLabel('10. Academic year of this claim').fill('2025-26');
+ await page.getByLabel('12. Bonafide certificate from Head of Institution attached?').selectOption('Yes');
+ await page.getByLabel('13. Hostel Subsidy amount certificate attached?').selectOption('Yes');
+ await page.getByLabel('14. Hostel Subsidy amount claimed (Rs.)').fill('1200');
+ await expect(page.getByText('₹1,200').first()).toBeVisible();
+ const pdf=await downloaded(page,'PDF','pdf');
+ expect((pdf.bytes.toString('latin1').match(/\/Type\s*\/Page\b/g)||[]).length).toBe(2);
+ const doc=await downloaded(page,'Word','docx');
+ const xml=execFileSync('unzip',['-p',doc.path,'word/document.xml'],{encoding:'utf8'});
+ expect(xml).toContain('PROFORMA FOR REIMBURSEMENT OF CHILDREN EDUCATION ALLOWANCE');
+ expect(xml).toContain('Page-2');
+ expect(xml).toContain('Sample Parent');
+ expect(xml).toMatch(/w:pageBreakBefore/);
+ const excel=await downloaded(page,'Excel','xlsx');
+ const wb=new ExcelJS.Workbook();await wb.xlsx.load(excel.bytes);
+ expect(wb.worksheets.map(s=>s.name)).toEqual(['01 - CEA Claim','02 - CEA Declaration']);
+ expect(wb.worksheets[0].pageSetup.fitToHeight).toBe(1);
+ expect(wb.worksheets[1].pageSetup.fitToHeight).toBe(1);
+ expect(wb.worksheets[0].getCell('A13').value).toBe('Sl No');
+ expect(wb.worksheets[1].getCell('A1').value).toBe('Page-2');
+ expect(errors).toEqual([]);
+});

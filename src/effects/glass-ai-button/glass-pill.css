@@ -178,3 +178,8 @@
 @media (hover:none) {
   .primary-btn.glass-pill:hover {transform:none}
 }
+
+/* Variant specificity must exceed the shared .primary-btn.glass-pill rule. */
+.primary-btn.glass-pill--explore{--pill-w:186px}
+.primary-btn.glass-pill--other{--pill-w:199px}
+.primary-btn.glass-pill--applications{--pill-w:174px}

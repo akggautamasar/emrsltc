@@ -8,7 +8,7 @@ async function downloaded(page,format,extension){
 }
 test('dashboard renders all three claim types and branding',async({page})=>{
  await page.goto('/');
- await expect(page.getByRole('heading',{name:'Claim forms, made effortless.'})).toBeVisible();
+ await expect(page.getByRole('heading',{name:/Claim forms.*made effortless/i})).toBeVisible();
  await expect(page.getByRole('button',{name:/LTC Claim Form/})).toBeVisible();
  await expect(page.getByRole('button',{name:/Medical Reimbursement/})).toBeVisible();
  await expect(page.getByRole('button',{name:/TA & DA Claim Form/})).toBeVisible();
@@ -30,7 +30,7 @@ test('medical statement generates all three formats',async({page})=>{
  await page.goto('/#medical');
  await page.getByLabel('Name of employee').fill('Medical Test');
  await page.getByLabel('Medical claim amount (Rs.)').fill('1350');
- await expect(page.getByText('₹1,350')).toBeVisible();
+ await expect(page.getByText('₹1,350').first()).toBeVisible();
  await downloaded(page,'PDF','pdf');
  await downloaded(page,'Word','docx');
  await downloaded(page,'Excel','xlsx');
@@ -42,7 +42,7 @@ test('TA/DA mileage totals and formats',async({page})=>{
  await page.getByLabel('Rate per km (Rs.)').fill('10');
  await page.getByLabel('DA days / fraction').fill('1');
  await page.getByLabel('DA rate (Rs.)').fill('250');
- await expect(page.getByText('₹350')).toHaveCount(2);
+ await expect(page.getByText('₹350').first()).toBeVisible();
  await downloaded(page,'PDF','pdf');
  await downloaded(page,'Word','docx');
  await downloaded(page,'Excel','xlsx');

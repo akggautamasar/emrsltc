@@ -36,7 +36,7 @@ export const policyLibrary = {
       {title:'Travel class, premium trains and air journeys', page:'NESTS circular, point (g) · DoPT Annexure-A', sources:['ltc-nests','ltc-dopt-2024','ltc-dopt-portal'], points:[
         'NESTS links LTC travel entitlement to the Ministry of Finance TA order of 13 July 2017, but explicitly states that the air entitlement for Pay Levels 6–8 applies to official TA, not ordinary LTC.',
         'Air-ticket booking rules depend on whether an employee is entitled to air travel, the type of LTC journey and any special dispensation. Where authorised agents or lowest-fare procedures are mandated, follow the relevant order and preserve evidence.',
-        'DoPT has issued later directions about premium trains and region-specific air concessions. A further DoPT special-air-LTC extension was issued on 9 September 2026 for eligible NER, J&K, Ladakh and A&N travel through 25 September 2028; verify the original current OM, categories and exact conditions through the DoPT order register before booking.'
+        'DoPT has issued later directions about premium trains and region-specific air concessions. A further DoPT special-air-LTC extension was issued on 9 September 2026 for eligible NER, J&K, Ladakh and A&N travel through 25 September 2028; verify the original current OM, categories and exact conditions through the DoPT order register before booking.',
         'An itinerary or fare higher than an eligible shortest-route equivalent may be restricted. Do not calculate a reimbursement ceiling solely from ticket price.'
       ]},
       {title:'LTC advance, tickets and claim deadlines', page:'NESTS circular, point (e) · DoPT Annexure-A', sources:['ltc-nests','ltc-dopt-2024'], points:[

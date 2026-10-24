@@ -90,6 +90,8 @@ const containsPhrase = (haystack, term) => (' ' + haystack + ' ').includes(' ' +
 function scoreItem(item, text) {
   const needle = clean(text);
   if (!needle) return 1;
+  const exactDate = parseDate(text.trim());
+  if (exactDate) return item.date === exactDate ? 275 : 0;
   const title=clean(item.title), ref=clean(item.refNumber), cat=clean(item.category);
   const date=(item.date || '') + ' ' + (item.date ? formatDate(item.date) : '');
   const full=clean([item.title,item.refNumber,item.circularNo,item.category,item.details,item.agency,date,item.pdfUrl].filter(Boolean).join(' '));

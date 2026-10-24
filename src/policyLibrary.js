@@ -12,7 +12,7 @@ export const policyLibrary = {
     sources: [
       {id:'ltc-nests', agency:'NESTS · EMRS-specific', title:'Guidelines for regulating LTC Claim', date:'30 May 2025', url:'https://nests.tribal.gov.in/WriteReadData/RTF1984/1748954065.pdf', details:'Official NESTS circular plus the 12-page DoPT consolidated 2024 instructions as Annexure-A', kind:'PDF · primary'},
       {id:'ltc-dopt-2024', agency:'DoPT · annexed official OM', title:'Guidelines on Leave Travel Concession — DoPT-1714455840135', date:'30 April 2024', url:'https://nests.tribal.gov.in/WriteReadData/RTF1984/1748954065.pdf#page=2', details:'Exact DoPT consolidated OM reproduced within NESTS official circular, starting at PDF page 2', kind:'PDF · original annexure'},
-      {id:'ltc-faqs', agency:'ESIC · Government of India', title:'DoPT LTC FAQs and consolidated instructions — government compilation', date:'2025', url:'https://nta.esic.gov.in/attachments/circularfile/FAQs_and_Compiled_Instructions_on_Leave_Travel_Concession_LTC_reg_Hindi_English_1754476522.pdf', details:'Government-hosted compilation forwarding DoPT FAQs and the 2024 consolidated instructions; consult current amendments', kind:'PDF · official compilation'},
+      {id:'ltc-faqs', agency:'DoPT · original government OM', title:'Official FAQs on CCS (LTC) Rules, 1988 · OM 31011/07/2025 PP.A-IV', date:'1 July 2025', url:'https://documents.doptcirculars.nic.in/D2/D02est/FAQs%20on%20LTC5hctT.pdf', details:'Direct original 21-page DoPT FAQ on eligible family, dependency, blocks, class, ticket booking, advances, travel proof and concessions. Includes next block 2026–29; check later orders.', kind:'PDF · primary DoPT FAQ'},
       {id:'ltc-dopt-portal', agency:'DoPT · official document register', title:'DoPT circulars repository — latest LTC amendments', date:'Continuously updated', url:'https://dopt.gov.in/documents/orders-and-notices', details:'Check post-2024 LTC amendments, special air concessions and latest FAQs here before relying on a route or benefit', kind:'Official portal'}
     ],
     groups: [
@@ -25,7 +25,7 @@ export const policyLibrary = {
       {title:'LTC blocks, home town, anywhere in India and family', page:'DoPT consolidated instructions · Annexure-A, pages 2 onward', sources:['ltc-dopt-2024','ltc-faqs'], points:[
         'The ordinary LTC system distinguishes Home Town LTC and Anywhere-in-India LTC, within the applicable two-year and four-year block scheme. Family members can travel separately subject to the rules.',
         'Check the declared home town, family eligibility, spouse claims, block entitlement and prior LTC recorded in the service book. Do not infer an unused LTC merely because a draft form has no earlier entries.',
-        'The DoPT consolidated document describes the 2022–2025 four-year block; this was the then-current block. Confirm the block relevant to the travel year and later orders rather than assuming those dates remain current.',
+        'The DoPT FAQs of 1 July 2025 explicitly identify 2026–2029 as the next four-year LTC block, with ordinary sub-blocks 2026–27 and 2028–29 where applicable. Check the employee’s home town declaration, entitlement pattern, carried-forward concession and subsequent orders.',
         'Special provisions for fresh recruits, family dependency, married/widowed daughters, adopted/stepchildren and spouse employment must be checked against the original CCS LTC rules and later FAQs.'
       ]},
       {title:'Leave, vacation, weekend and journey conditions', page:'NESTS circular, page 1 · (f), (h)', sources:['ltc-nests'], points:[
@@ -36,7 +36,7 @@ export const policyLibrary = {
       {title:'Travel class, premium trains and air journeys', page:'NESTS circular, point (g) · DoPT Annexure-A', sources:['ltc-nests','ltc-dopt-2024','ltc-dopt-portal'], points:[
         'NESTS links LTC travel entitlement to the Ministry of Finance TA order of 13 July 2017, but explicitly states that the air entitlement for Pay Levels 6–8 applies to official TA, not ordinary LTC.',
         'Air-ticket booking rules depend on whether an employee is entitled to air travel, the type of LTC journey and any special dispensation. Where authorised agents or lowest-fare procedures are mandated, follow the relevant order and preserve evidence.',
-        'The government has issued subsequent provisions about selected premium trains and regional air concessions. The 2024 consolidated OM alone is not sufficient to establish a special-air entitlement for travel after 25 September 2026; check the latest DoPT orders.',
+        'DoPT has issued later directions about premium trains and region-specific air concessions. A further DoPT special-air-LTC extension was issued on 9 September 2026 for eligible NER, J&K, Ladakh and A&N travel through 25 September 2028; verify the original current OM, categories and exact conditions through the DoPT order register before booking.'
         'An itinerary or fare higher than an eligible shortest-route equivalent may be restricted. Do not calculate a reimbursement ceiling solely from ticket price.'
       ]},
       {title:'LTC advance, tickets and claim deadlines', page:'NESTS circular, point (e) · DoPT Annexure-A', sources:['ltc-nests','ltc-dopt-2024'], points:[

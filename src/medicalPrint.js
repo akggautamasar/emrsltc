@@ -21,14 +21,16 @@ const sections1=d=>[
  ['(b)','Relationship with the Medical card holder',S(d.relationship)],
  ['3.','Name & address of the hospital / diagnostic center / imaging center where treatment is taken or tests done',S(d.hospitalDetails)],
  ['4.','Whether the hospital/diagnostic/imaging center is empaneled under CGHS',S(d.cghsEmpanelled)],
- ['5. (a)','OPD Treatment / Test & investigations / Medicines',S(d.opdTreatment)],
+ ['5.','Treatment for which reimbursement claimed',''],
+ ['(a)','OPD Treatment / Test & investigations / Medicines',S(d.opdTreatment)],
  ['(b)','Indoor Treatment',S(d.indoorTreatment)],
  ['6.','Whether treatment was taken in emergency',S(d.emergency)]
 ];
 const sections2=d=>[
  ['7.','Whether subscribing to any health/medical insurance scheme',S(d.hasInsurance)+(d.insuranceClaimed?' ; Amount claimed / received (Rs.): '+rup(d.insuranceClaimed):'')],
  ['8.','Details of Medical Advance taken, if any',advance(d)],
- ['9. (a)','OPD Treatment',rup(d.opdAmount)],
+ ['9.','Total amount claimed',''],
+ ['(a)','OPD Treatment',rup(d.opdAmount)],
  ['(b)','Tests / Investigation',rup(d.investigationAmount)],
  ['(c)','Medicines',rup(d.medicineAmount)],
  ['(d)','Indoor Treatment',rup(d.indoorAmount)]

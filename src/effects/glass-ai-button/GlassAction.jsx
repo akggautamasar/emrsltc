@@ -8,7 +8,7 @@ export default function GlassAction({ label, onClick, className = '' }) {
   const ref = useRef(null);
   const frame = useRef(null);
   const [visible, setVisible] = useState(false);
-  const [pageVisible, setPageVisible] = useState(() => !document.hidden);
+  const [pageVisible, setPageVisible] = useState(() => typeof document === 'undefined' || !document.hidden);
   const [ready, setReady] = useState(false);
   const documentHtml = useMemo(() => {
     const safeLabel = String(label).replace(/[<>&"']/g, '').slice(0, 36);
@@ -16,7 +16,7 @@ export default function GlassAction({ label, onClick, className = '' }) {
       document.querySelector('#controls')?.remove();
       const canvas = document.querySelector('#glass');
       const observer = new MutationObserver(() => { if (canvas?.dataset.ready === 'true') { window.parent.postMessage({type:'emrs-glass-ready'}, '*'); observer.disconnect(); } });
-      if (canvas) observer.observe(canvas, {attributes:true,attributeFilter:['data-ready']});
+      if (canvas) { observer.observe(canvas, {attributes:true,attributeFilter:['data-ready']}); if (canvas.dataset.ready === 'true') { window.parent.postMessage({type:'emrs-glass-ready'}, '*'); observer.disconnect(); } }
       document.addEventListener('click', function(event) {
         if (event.target.closest('#activate')) {
           window.parent.postMessage({type:'emrs-glass-activate'}, '*');

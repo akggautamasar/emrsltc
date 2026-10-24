@@ -50,7 +50,7 @@ test('TA/DA mileage totals and formats',async({page})=>{
  await page.getByLabel('Distance (km)').fill('10');
  await page.getByLabel('Rate per km (Rs.)').fill('10');
  await page.getByLabel('DA days / fraction').fill('1');
- await page.getByLabel('DA rate (Rs.)').fill('250');
+ await page.getByLabel('DA rate (Rs. or %)').fill('250');
  await expect(page.getByText('₹350').first()).toBeVisible();
  await downloaded(page,'PDF','pdf');
  await downloaded(page,'Word','docx');

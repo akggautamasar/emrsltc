@@ -14,9 +14,12 @@ export default function GlassAction({ label, onClick, className = '' }) {
     const safeLabel = String(label).replace(/[<>&"']/g, '').slice(0, 36);
     const bridge = `<script>
       document.querySelector('#controls')?.remove();
-      const canvas = document.querySelector('#glass');
-      const observer = new MutationObserver(() => { if (canvas?.dataset.ready === 'true') { window.parent.postMessage({type:'emrs-glass-ready'}, '*'); observer.disconnect(); } });
-      if (canvas) { observer.observe(canvas, {attributes:true,attributeFilter:['data-ready']}); if (canvas.dataset.ready === 'true') { window.parent.postMessage({type:'emrs-glass-ready'}, '*'); observer.disconnect(); } }
+      // The canonical renderer never sets data-ready. Signal after first paint.
+      window.addEventListener('load', () => {
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          window.parent.postMessage({type:'emrs-glass-ready'}, '*');
+        }));
+      }, {once:true});
       document.addEventListener('click', function(event) {
         if (event.target.closest('#activate')) {
           window.parent.postMessage({type:'emrs-glass-activate'}, '*');

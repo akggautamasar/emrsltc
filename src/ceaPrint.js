@@ -45,6 +45,7 @@ function makePdf(d){
  const W=210,L=16,R=194,SW=R-L;
  pdf.setDrawColor(35);pdf.setTextColor(0);pdf.setLineWidth(.2);
  const put=(text,x,y,w,pt=9.1,bold=false,max=4)=>{
+  if(!T(text).trim())return 0;
   pdf.setFont('times',bold?'bold':'normal');pdf.setFontSize(pt);let p=pt;
   let lines=pdf.splitTextToSize(T(text),w);
   while(lines.length>max&&p>6){p-=.3;pdf.setFontSize(p);lines=pdf.splitTextToSize(T(text),w)}

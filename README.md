@@ -38,8 +38,19 @@ This is a form-preparation aid. Downloaded claims must be verified against appli
 
 **EMRS Claim Forms by worksbeyond** · Made with ❤️ by AiR
 
-## Rules viewer
+## Rules viewer: LTC, TA/DA, Medical, CEA/Hostel (24 October 2026 update)
 
-The home page has a **Rules** button next to **Start form** for each form, and form editors have **View Rules**. For Medical Reimbursement, the searchable viewer summarises the uploaded NESTS Medical Attendance Rules, 2024 (pages 1–12) by topic, and links to the [official NESTS circular PDF](https://nests.tribal.gov.in/WriteReadData/RTF1984/1735100833.pdf). LTC and TA/DA buttons clearly show template guidance because separate authoritative LTC/TA rules were not provided. Review all later NESTS instructions before submission.
+All four major claim forms now share an indexed, searchable **Official Claim Rules & Circulars** dialog, opened by **Rules** on each dashboard card or **View Rules** inside the form editor.
 
-**CEA reference:** [Official 21 April 2025 NESTS CEA/Hostel Subsidy notice and Annexures](https://nests.tribal.gov.in/WriteReadData/RTF1984/1745238066.pdf). Later circulars are linked in the CEA rules dialog. No automatic entitlement/rate approval is provided.
+**Hierarchy / important limitation:** NESTS service-specific circulars and the latest adopted government orders take precedence over general reference material. All topics are document-preparation notes, not entitlement approvals, rate certifications or legal advice. The viewer links direct government-hosted original PDFs (or their NESTS-hosted attachments), with later amendments prominently identified. The latest DoPT and Ministry of Finance circulars should be checked when processing an actual dated claim.
+
+| Form | Principal EMRS-specific official source | Additional government reference |
+| --- | --- | --- |
+| LTC | [NESTS Guidelines for regulating LTC Claim, 30 May 2025](https://nests.tribal.gov.in/WriteReadData/RTF1984/1748954065.pdf) (including DoPT 30 Apr 2024 consolidated guidelines as Annexure A) | CCS LTC 1988 regime, DoPT LTC consolidated guidance/FAQs and current orders |
+| TA/DA | [NESTS Clarification on approving/passing TA bills, 22 May 2025](https://nests.tribal.gov.in/WriteReadData/RTF1984/1747996862.pdf) | [Department of Expenditure TA 7th CPC OM dated 13 Jul 2017](https://doe.gov.in/files/cenetral-pay_document/TA_English.pdf) and subsequent clarifications |
+| Medical | [NESTS Medical Attendance Rules, 23 Dec 2024](https://nests.tribal.gov.in/WriteReadData/RTF1984/1735100833.pdf) | [NESTS Medical Reimbursement Procedure, 1 Oct 2025](https://nests.tribal.gov.in/WriteReadData/RTF1984/1759320282.pdf) and CGHS context where adopted |
+| CEA / Hostel | [NESTS CEA clarification and Annexure-B, 21 Apr 2025](https://nests.tribal.gov.in/WriteReadData/RTF1984/1745238066.pdf) | [NESTS revised approval guidelines, 30 Jun 2025](https://nests.tribal.gov.in/WriteReadData/RTF1984/1755757157.pdf), government-hosted DoPT allowance OM of 25 Apr 2024 and later FAQ clarifications |
+
+Search covers a topic's title, source, date and detail. Each topic provides direct original-source links. The full document library offers dates, issuing bodies and PDF links. See `src/policyLibrary.js`, `src/RulesDialog.jsx` and `src/policy-library.css`.
+
+No changes have been made to export calculation logic: rates, office approval, medical treatment admissibility, block-specific LTC and claim ceilings require case-by-case verification. Both beta sections, All Other Forms and Applications, remain separately identified as under development.

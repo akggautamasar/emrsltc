@@ -142,14 +142,14 @@ function makePdf(d){
  text('Certified that the amount due on this bill has been disbursed to the proper person and his acquaintance.',L+U*.64,fy+13,U*.36,13,6.4,'normal','left',3);
  text('Passed for payment Rs. '+(S(d.passedAmount)||'................')+' /-  (Rs. '+(S(d.advanceWords)||'................')+' only)',L+U*.64,fy+1,U*.36,9,6,'normal','left',3);
  text('Signature of Employee',L+U*.26,fy+32,U*.25,4,6.5);
- text('PRINCIPAL\nEMRS KARANJIYA',L+U*.72,fy+31,U*.25,8,6.5,'bold');
+ text('PRINCIPAL\n'+schoolName(d),L+U*.72,fy+31,U*.25,8,6.5,'bold');
  text('Date of Withdrawal: '+D(d.withdrawalDate)+'     for self/family/both: '+S(d.claimFor),L,fy+34,U*.61,5,6,'normal','left',2);
  // PAGE TWO (explicit)
  pdf.addPage('a4','landscape');
  pdf.setFont('helvetica','normal');
  const center=(s,y,pt=12,bold=false)=>{pdf.setFont('helvetica',bold?'bold':'normal');pdf.setFontSize(pt);pdf.text(s,W/2,y,{align:'center'})};
  center('CERTIFICATE',14,15);
- center('EMRS Karanjiya',21,11,true);
+ center(schoolName(d),21,11,true);
  let y=31;
  certifications.forEach((line,i)=>{
   const lines=pdf.splitTextToSize(line,U-1);pdf.setFontSize(9);pdf.setFont('helvetica','normal');
@@ -219,10 +219,10 @@ async function makeWord(d){
  const signatures=new Table({width:{size:15500,type:WidthType.DXA},borders:{},rows:[
  new TableRow({children:[
  new TableCell({width:{size:9300,type:WidthType.DXA},children:[wp('PARTICULARS TO BE GIVEN BY EMPLOYEE ON LEAVE TRAVEL CONCESSION BILL',6.5,true),...employeeFields(d).map(x=>wp(x,6.1,false,{after:18})),wp('Date of Withdrawal: '+D(d.withdrawalDate)+'     for self/family/both: '+S(d.claimFor),6),wp('Signature of Employee: ____________________',7)]}),
- new TableCell({width:{size:6200,type:WidthType.DXA},children:[wp('Passed for payment Rs. '+(S(d.passedAmount)||'................')+' /-',6.7,true),wp('CERTIFICATE OF DISBURSEMENT',7,true,{center:true}),wp('Certified that the amount due on this bill has been disbursed to the proper person and his acquaintance.',7),wp('PRINCIPAL — EMRS KARANJIYA',7,true,{center:true})]})
+ new TableCell({width:{size:6200,type:WidthType.DXA},children:[wp('Passed for payment Rs. '+(S(d.passedAmount)||'................')+' /-',6.7,true),wp('CERTIFICATE OF DISBURSEMENT',7,true,{center:true}),wp('Certified that the amount due on this bill has been disbursed to the proper person and his acquaintance.',7),wp('PRINCIPAL — '+schoolName(d),7,true,{center:true})]})
  ]})]});
  const first=[wp(schoolName(d),10,false,{center:true,after:0}),wp('TRAVELLING ALLOWANCE BILL',9,true,{center:true,after:10}),info,wordFrontTable(d),totals,signatures];
- const back=[wp('CERTIFICATE',15,false,{center:true,pageBreakBefore:true,after:0}),wp('EMRS Karanjiya',11,true,{center:true,after:100})];
+ const back=[wp('CERTIFICATE',15,false,{center:true,pageBreakBefore:true,after:0}),wp(schoolName(d),11,true,{center:true,after:100})];
  certifications.forEach((c,i)=>back.push(wp(c,9,false,{after:i===7?270:115})));
  back.push(wp('Signature ..........................................',9,false,{after:40}),wp('Designation of the employee',9,false,{after:110}),wp('Dated: '+D(d.employeeAdvanceDate||d.signatureDate)+' ................',9,false,{after:200}));
  back.push(wp('CERTIFICATE TO BE FURNISHED BY CONTROLLING OFFICER',9,true,{center:true,after:200}));
@@ -273,7 +273,7 @@ function makeWorkbookFront(wb,d){
  span(f+1,13,20,'CERTIFICATE OF DISBURSEMENT',true);
  span(f+2,13,20,'Certified that the amount due on this bill has been',false);
  span(f+3,13,20,'disbursed to the proper person and his acquaintance.');
- span(f+5,13,20,'PRINCIPAL — EMRS KARANJIYA',true);
+ span(f+5,13,20,'PRINCIPAL — '+schoolName(d),true);
  span(f+8,1,12,'Date of Withdrawal: '+D(d.withdrawalDate)+'  For '+S(d.claimFor),false,18);
  span(f+9,1,12,'Signature of Employee: ______________________',false,20);
  sh.getRow(f+10).height=6;
@@ -305,7 +305,7 @@ function makeWorkbookBack(wb,d){
   c.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFFFFFFF'}};
  };
  line('CERTIFICATE',31,false,17,'center');
- line('EMRS Karanjiya',25,true,13,'center');
+ line(schoolName(d),25,true,13,'center');
  line('',12);
  certifications.forEach((c,i)=>{line(c,c.length>180?54:c.length>110?36:25,false,10);if(i===7)line('',12)});
  line('',18);

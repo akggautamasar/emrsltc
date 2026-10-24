@@ -35,14 +35,51 @@ test('LTC form edits and exports PDF Word and Excel',async({page})=>{
  await downloaded(page,'Excel','xlsx');
  expect(errors).toEqual([]);
 });
-test('medical statement generates all three formats',async({page})=>{
+
+test('medical Annexure-I uses new fields and produces two-page PDF, Word and Excel',async({page})=>{
  await page.goto('/#medical');
- await page.getByLabel('Name of employee').fill('Medical Test');
- await page.getByLabel('Medical claim amount (Rs.)').fill('1350');
+ await page.getByLabel('Name of the Medical Card Holder').fill('Test Medical Cardholder');
+ await page.getByLabel('Medical Card No.').fill('MED-204');
+ await page.getByLabel('Patient\'s Name').fill('Test Dependent');
+ await page.getByLabel('Relationship with Medical Card holder').selectOption('Son');
+ await page.getByLabel('Name and address of hospital / diagnostic / imaging centre').fill('District Hospital');
+ await page.getByLabel('(a) OPD Treatment (Rs.)').fill('1000');
+ await page.getByLabel('(b) Tests / Investigation (Rs.)').fill('300');
+ await page.getByLabel('(c) Medicines (Rs.)').fill('50');
  await expect(page.getByText('₹1,350').first()).toBeVisible();
- await downloaded(page,'PDF','pdf');
- await downloaded(page,'Word','docx');
- await downloaded(page,'Excel','xlsx');
+ const pdf=await downloaded(page,'PDF','pdf');
+ const pages=(pdf.bytes.toString('latin1').match(/\/Type\s*\/Page\b/g)||[]).length;
+ expect(pages).toBe(2);
+ const word=await downloaded(page,'Word','docx');
+ const xml=execFileSync('unzip',['-p',word.path,'word/document.xml'],{encoding:'utf8'});
+ expect(xml).toContain('MEDICAL REIMBURSEMENT CLAIM FORM');
+ expect(xml).toContain('Test Medical Cardholder');
+ expect(xml).toContain('DECLARATION');
+ expect(xml).toMatch(/w:pageBreakBefore/);
+ const excel=await downloaded(page,'Excel','xlsx');
+ const wb=new ExcelJS.Workbook(); await wb.xlsx.load(excel.bytes);
+ expect(wb.worksheets.map(sh=>sh.name)).toEqual(['01 - Medical Claim','02 - Declaration']);
+ expect(wb.worksheets[0].getCell('D9').value).toBe('Test Medical Cardholder');
+ expect(wb.worksheets[1].getCell('A12').value).toBe('DECLARATION');
+});
+
+test('dashboard and form expose medical Rules, including official PDF access',async({page})=>{
+ await page.goto('/');
+ const card=page.locator('.form-card').filter({hasText:'Medical Reimbursement'});
+ await expect(card.getByRole('button',{name:'Rules'})).toBeVisible();
+ await card.getByRole('button',{name:'Rules'}).click();
+ const dialog=page.getByRole('dialog',{name:/NESTS Medical Attendance Rules, 2024/});
+ await expect(dialog).toBeVisible();
+ await expect(dialog.getByText('23 December 2024')).toBeVisible();
+ await dialog.getByLabel('Search medical rules').fill('emergency');
+ await expect(dialog.getByText(/Hospitalisation, approvals and emergencies/)).toBeVisible();
+ await expect(dialog.getByRole('link',{name:/Open full official NESTS PDF/})).toHaveAttribute('href',/nests\.tribal\.gov\.in/);
+ await dialog.getByRole('button',{name:'Back to forms'}).click();
+ await card.getByRole('button',{name:/Start form/}).click();
+ await page.getByRole('button',{name:'View Rules'}).click();
+ await expect(page.getByRole('dialog',{name:/NESTS Medical Attendance Rules, 2024/})).toBeVisible();
+ await page.getByRole('button',{name:'Close rules'}).click();
+ await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 test('TA/DA mileage totals and formats',async({page})=>{
  await page.goto('/#ta');

@@ -1,10 +1,16 @@
 import {test,expect} from '@playwright/test';
+import {readFile,stat} from 'node:fs/promises';
 async function downloaded(page,format,extension){
  const promise=page.waitForEvent('download',{timeout:60000});
  await page.getByRole('button',{name:new RegExp('Download '+format,'i')}).click();
  const file=await promise;
  expect(file.suggestedFilename()).toMatch(new RegExp('\\.'+extension+'$'));
  expect(await file.failure()).toBeNull();
+ const path=await file.path();
+ const bytes=await readFile(path);
+ expect((await stat(path)).size).toBeGreaterThan(350);
+ if(extension==='pdf')expect(bytes.subarray(0,4).toString()).toBe('%PDF');
+ else expect(bytes.subarray(0,2).toString()).toBe('PK');
 }
 test('dashboard renders all three claim types and branding',async({page})=>{
  await page.goto('/');

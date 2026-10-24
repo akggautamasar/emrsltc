@@ -66,8 +66,8 @@ test('medical Annexure-I uses new fields and produces two-page PDF, Word and Exc
 test('dashboard and form expose medical Rules, including official PDF access',async({page})=>{
  await page.goto('/');
  const card=page.locator('.form-card').filter({hasText:'Medical Reimbursement'});
- await expect(card.getByRole('button',{name:'Rules'})).toBeVisible();
- await card.getByRole('button',{name:'Rules'}).click();
+ await expect(card.getByRole('button',{name:'Rules',exact:true})).toBeVisible();
+ await card.getByRole('button',{name:'Rules',exact:true}).click();
  const dialog=page.getByRole('dialog',{name:/NESTS Medical Attendance Rules, 2024/});
  await expect(dialog).toBeVisible();
  await expect(dialog.getByText('23 December 2024')).toBeVisible();

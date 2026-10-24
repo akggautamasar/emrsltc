@@ -13,6 +13,10 @@ export default function GlassAction({ label, onClick, className = '' }) {
   const documentHtml = useMemo(() => {
     const safeLabel = String(label).replace(/[<>&"']/g, '').slice(0, 36);
     const bridge = `<script>
+      document.querySelector('#controls')?.remove();
+      const canvas = document.querySelector('#glass');
+      const observer = new MutationObserver(() => { if (canvas?.dataset.ready === 'true') { window.parent.postMessage({type:'emrs-glass-ready'}, '*'); observer.disconnect(); } });
+      if (canvas) observer.observe(canvas, {attributes:true,attributeFilter:['data-ready']});
       document.addEventListener('click', function(event) {
         if (event.target.closest('#activate')) {
           window.parent.postMessage({type:'emrs-glass-activate'}, '*');
@@ -36,8 +40,9 @@ export default function GlassAction({ label, onClick, className = '' }) {
   }, []);
   useEffect(() => {
     const handle = event => {
-      if (event.source !== frame.current?.contentWindow || event.data?.type !== 'emrs-glass-activate') return;
-      onClick?.();
+      if (event.source !== frame.current?.contentWindow) return;
+      if (event.data?.type === 'emrs-glass-ready') { setReady(true); return; }
+      if (event.data?.type === 'emrs-glass-activate') onClick?.();
     };
     window.addEventListener('message', handle);
     return () => window.removeEventListener('message', handle);
@@ -46,7 +51,7 @@ export default function GlassAction({ label, onClick, className = '' }) {
   useEffect(() => { setReady(false); }, [mounted]);
   return <div ref={ref} className={`emrs-glass-action ${className}`} aria-label={label}>
     {mounted ? <iframe ref={frame} title={label} srcDoc={documentHtml} sandbox="allow-scripts"
-      onLoad={() => setReady(true)} style={{opacity:ready?1:0}} /> : null}
+      onLoad={() => {}} style={{opacity:ready?1:0}} /> : null}
     {!ready && <button className="emrs-glass-fallback" type="button" onClick={onClick}>{label}</button>}
   </div>;
 }

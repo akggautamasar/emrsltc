@@ -86,6 +86,7 @@ function distinctRecords(official, personal) {
   return Array.from(map.values());
 }
 
+const containsPhrase = (haystack, term) => (' ' + haystack + ' ').includes(' ' + term + ' ');
 function scoreItem(item, text) {
   const needle = clean(text);
   if (!needle) return 1;
@@ -96,13 +97,13 @@ function scoreItem(item, text) {
   if (numeric && Number(numeric[1]) === Number(item.number)) return 260;
   if (needle === ref && ref) return 220;
   if (title === needle) return 180;
-  if (title.includes(needle)) return 110;
-  if (ref.includes(needle) && ref) return 96;
-  if (full.includes(needle)) return 85;
+  if (containsPhrase(title, needle)) return 110;
+  if (ref && containsPhrase(ref, needle)) return 96;
+  if (containsPhrase(full, needle)) return 85;
   const words=needle.split(' ').filter(Boolean);
-  if (words.length > 1 && words.every(w => full.includes(w))) return 64;
+  if (words.length > 1 && words.every(w => containsPhrase(full, w))) return 64;
   const synonyms=SEARCH_TERMS[needle] || [];
-  if (synonyms.some(term=>title.includes(clean(term)))) return 38;
+  if (synonyms.some(term=>containsPhrase(title,clean(term)))) return 38;
   return 0;
 }
 

@@ -2,7 +2,7 @@
 import React,{useState,useEffect} from 'react';
 import {FileText,HeartPulse,TrainFront,ArrowUpRight,ArrowLeft,Plus,Trash2,Download,FileSpreadsheet,FileType,FileCheck2,Save,FolderOpen,RotateCcw,ShieldCheck,LockKeyhole,Info,CheckCircle2,Heart,ChevronRight,Building2,UserRound,MapPinned,Wallet,ClipboardList,Printer,Menu,X,AlertCircle} from 'lucide-react';
 import {defaults,info,makeMember,makeLtcJourney,makeHigher,makeRoad,makeMedical,makeTaJourney,sum,inr,taRowAmount,dateText} from './schema.js';
-import {exportClaim} from './exporters.js';
+
 
 const ICONS={ltc:FileText,medical:HeartPulse,ta:TrainFront};
 const lists={ltc:['members','journeys','higher','road'],medical:['rows'],ta:['rows']};
@@ -48,7 +48,7 @@ export default function App(){
  const patch=(list,i,key,value)=>setAll(prev=>({...prev,[selected]:{...prev[selected],[list]:prev[selected][list].map((r,n)=>n===i?{...r,[key]:value}:r)}}));
  const add=(list,row)=>setAll(prev=>({...prev,[selected]:{...prev[selected],[list]:[...prev[selected][list],row]}}));
  const remove=(list,i)=>setAll(prev=>({...prev,[selected]:{...prev[selected],[list]:prev[selected][list].filter((r,n)=>n!==i)}}));
- const downloadFile=async format=>{if(!selected)return;setBusy(format);setNotice('');try{await exportClaim(selected,data,format);setNotice(format.toUpperCase()+' download prepared successfully.')}catch(err){console.error(err);setNotice('Export failed: '+(err?.message||'Please try again.'))}finally{setBusy('')}};
+ const downloadFile=async format=>{if(!selected)return;setBusy(format);setNotice('');try{const {exportClaim}=await import('./exporters.js');await exportClaim(selected,data,format);setNotice(format.toUpperCase()+' download prepared successfully.')}catch(err){console.error(err);setNotice('Export failed: '+(err?.message||'Please try again.'))}finally{setBusy('')}};
  const saveDraft=()=>{try{localStorage.setItem('emrsclaims_'+selected,JSON.stringify(data));setNotice('Draft saved on this device only.')}catch(e){setNotice('Could not save on this device.')}};
  const loadDraft=()=>{try{const raw=localStorage.getItem('emrsclaims_'+selected);if(!raw){setNotice('No saved draft for this form on this device.');return}const parsed=JSON.parse(raw);if(!parsed||typeof parsed!=='object'||lists[selected].some(k=>!Array.isArray(parsed[k])))throw Error();setAll(prev=>({...prev,[selected]:{...defaults[selected],...parsed}}));setNotice('Saved draft loaded.')}catch(e){setNotice('Saved draft could not be read.')}};
  const reset=()=>{if(window.confirm('Clear the current form? Unsaved information will be lost.')){setAll(prev=>({...prev,[selected]:clone(defaults[selected])}));setNotice('Form cleared.')}} ;

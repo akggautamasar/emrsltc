@@ -59,6 +59,8 @@ test('TA/DA mileage totals and formats',async({page})=>{
 
 test('TA/DA files are exactly two sides and retain bill column structure',async({page})=>{
  await page.goto('/#ta');
+ const institution='EMRS TEST MODEL SCHOOL, DINDORI MP';
+ await page.getByLabel('Institution / school').fill(institution);
  await page.getByLabel('Employee name').fill('Two Page Test');
  await page.getByLabel('DA rate (Rs. or %)').fill('70%');
  await page.getByLabel('Daily allowance amount (Rs.)').fill('437.5');
@@ -68,6 +70,7 @@ test('TA/DA files are exactly two sides and retain bill column structure',async(
  const doc=await downloaded(page,'Word','docx');
  const xml=execFileSync('unzip',['-p',doc.path,'word/document.xml'],{encoding:'utf8'});
  expect(xml).toContain('CERTIFICATE TO BE FURNISHED BY CONTROLLING OFFICER');
+ expect(xml.split(institution).length-1).toBeGreaterThanOrEqual(2);
  expect(xml).toMatch(/w:pageBreakBefore/);
  const excel=await downloaded(page,'Excel','xlsx');
  const wb=new ExcelJS.Workbook();
@@ -78,4 +81,6 @@ test('TA/DA files are exactly two sides and retain bill column structure',async(
  expect(wb.worksheets[0].getCell('G5').value).toBe('Kind of journey');
  expect(wb.worksheets[0].getCell('S9').value).toBe(437.5);
  expect(wb.worksheets[1].getCell('A1').value).toBe('CERTIFICATE');
+ expect(wb.worksheets[0].getCell('A1').value).toBe(institution);
+ expect(wb.worksheets[1].getCell('A2').value).toBe(institution);
 });

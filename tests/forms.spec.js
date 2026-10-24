@@ -1,5 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {readFile,stat} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import ExcelJS from 'exceljs';
 async function downloaded(page,format,extension){
  const promise=page.waitForEvent('download',{timeout:60000});
  await page.getByRole('button',{name:new RegExp('Download '+format,'i')}).click();
@@ -11,6 +13,7 @@ async function downloaded(page,format,extension){
  expect((await stat(path)).size).toBeGreaterThan(350);
  if(extension==='pdf')expect(bytes.subarray(0,4).toString()).toBe('%PDF');
  else expect(bytes.subarray(0,2).toString()).toBe('PK');
+ return {bytes,path};
 }
 test('dashboard renders all three claim types and branding',async({page})=>{
  await page.goto('/');
@@ -52,4 +55,27 @@ test('TA/DA mileage totals and formats',async({page})=>{
  await downloaded(page,'PDF','pdf');
  await downloaded(page,'Word','docx');
  await downloaded(page,'Excel','xlsx');
+});
+
+test('TA/DA files are exactly two sides and retain bill column structure',async({page})=>{
+ await page.goto('/#ta');
+ await page.getByLabel('Employee name').fill('Two Page Test');
+ await page.getByLabel('DA rate (Rs. or %)').fill('70%');
+ await page.getByLabel('Daily allowance amount (Rs.)').fill('437.5');
+ const pdf=await downloaded(page,'PDF','pdf');
+ const pageCount=(pdf.bytes.toString('latin1').match(/\/Type\s*\/Page\b/g)||[]).length;
+ expect(pageCount).toBe(2);
+ const doc=await downloaded(page,'Word','docx');
+ const xml=execFileSync('unzip',['-p',doc.path,'word/document.xml'],{encoding:'utf8'});
+ expect(xml).toContain('CERTIFICATE TO BE FURNISHED BY CONTROLLING OFFICER');
+ expect(xml).toMatch(/w:pageBreakBefore/);
+ const excel=await downloaded(page,'Excel','xlsx');
+ const wb=new ExcelJS.Workbook();
+ await wb.xlsx.load(excel.bytes);
+ expect(wb.worksheets.map(s=>s.name)).toEqual(['01 - TA DA Bill','02 - Certificate']);
+ expect(wb.worksheets[0].pageSetup.fitToHeight).toBe(1);
+ expect(wb.worksheets[1].pageSetup.fitToHeight).toBe(1);
+ expect(wb.worksheets[0].getCell('G5').value).toBe('Kind of journey');
+ expect(wb.worksheets[0].getCell('S9').value).toBe(437.5);
+ expect(wb.worksheets[1].getCell('A1').value).toBe('CERTIFICATE');
 });

@@ -110,7 +110,7 @@ export const policyLibrary = {
     sources: [
       {id:'med-nests-2024',agency:'NESTS · primary service policy',title:'NESTS Medical Attendance Rules, 2024 and Annexure-I claim form',date:'23 December 2024',url:'https://nests.tribal.gov.in/WriteReadData/RTF1984/1735100833.pdf',details:'Policy on coverage, dependants, OPD/IPD, emergency, insurance, reimbursement and prescribed Annexure-I',kind:'PDF · primary'},
       {id:'med-nests-2025',agency:'NESTS · updated procedure',title:'Guidelines for Procedure for Medical Reimbursement',date:'1 October 2025',url:'https://nests.tribal.gov.in/WriteReadData/RTF1984/1759320282.pdf',details:'OPD/IPD document checklists, sanction hierarchy, record retention and exceptional hospital cases',kind:'PDF · current procedure'},
-      {id:'med-health',agency:'Ministry of Health & Family Welfare',title:'Central Services (Medical Attendance) Rules — FAQs',date:'Government reference',url:'https://www.mohfw.gov.in/sites/default/files/FAQ_0.pdf',details:'General Central Government medical-attendance principles. NESTS-specific rules govern EMRS claims; this document is not a replacement.',kind:'PDF · contextual'},
+      {id:'med-health',agency:'Ministry of Health / CGHS',title:'CGHS portal — empanelment and current government rate references',date:'Current reference',url:'https://cghs.gov.in/',details:'General CGHS hospital/rate information. Use only to interpret rates where the NESTS medical policy adopts them; eligibility and approvals remain under NESTS.',kind:'Government reference portal'},
       {id:'med-portal',agency:'NESTS · official circular register',title:'NESTS General Circulars — later medical instructions',date:'Continuously updated',url:'https://nests.tribal.gov.in/show_content.php?lang=1&level=1&lid=373&ls_id=938',details:'Check for later medical-rate, medical-card, authorisation and reimbursement updates',kind:'Official portal'}
     ],
     groups: [
@@ -154,7 +154,8 @@ export const policyLibrary = {
     sources: [
       {id:'cea-nests-apr',agency:'NESTS · primary policy and form',title:'Clarification on CEA and Hostel Subsidy · Annexures A/B',date:'21 April 2025',url:'https://nests.tribal.gov.in/WriteReadData/RTF1984/1745238066.pdf',details:'EMRS-specific clarification; reproduced government reference notes and prescribed Annexure-B pages 8–9',kind:'PDF · primary'},
       {id:'cea-nests-jun',agency:'NESTS · revised procedure',title:'Revised Guidelines for Approving Claims of CEA and Hostel Subsidy',date:'30 June 2025',url:'https://nests.tribal.gov.in/WriteReadData/RTF1984/1755757157.pdf',details:'Later approval instructions, take precedence in case of changes; verify the actual PDF before determining who sanctions a claim',kind:'PDF · later circular'},
-      {id:'cea-dopt-year',agency:'DoPT · official annual report',title:'DoPT Annual Report 2024–25 · CEA/Hostel Subsidy policy updates',date:'2024–25',url:'https://dopt.gov.in/sites/default/files/AR2024-25English.pdf',details:'Summarises 14 March 2024 OM about the three pre-primary classes and 25 April 2024 increase linked to DA',kind:'PDF · official summary'},
+      {id:'cea-dopt-year',agency:'DoPT OM · government-hosted copy',title:'CEA and Hostel Subsidy increase by 25% · DoPT A-27012/01/2023',date:'25 April 2024',url:'https://csharyana.gov.in/WriteReadData/Notifications-%26-Orders/Services-I/15038.pdf',details:'Official DoPT 2024 OM reproduced in a Haryana Government PDF. The ₹2,812.50/₹8,437.50 monthly figures relate to the stated 2024 effective date, not a live rate guarantee.',kind:'PDF · original DoPT OM'},
+      {id:'cea-2026-faq',agency:'Department of Posts · Government of India',title:'Consolidated FAQs on CEA (based on DoPT instructions)',date:'2 April 2026',url:'https://utilities.cept.gov.in/dop/pdfbind.ashx?id=14737',details:'Department of Posts circular on pre-primary classes, one-time NEP-2020 repetition relaxation, leave, dies non and service cessation. Context only; NESTS directions govern EMRS processing.',kind:'PDF · official FAQs'},
       {id:'cea-portal',agency:'NESTS · official circular register',title:'NESTS General Circulars — CEA and Hostel Subsidy',date:'Continuously updated',url:'https://nests.tribal.gov.in/show_content.php?lang=1&level=1&lid=373&ls_id=938',details:'Check for further updates to approving authority, documents and reimbursement',kind:'Official portal'}
     ],
     groups: [
@@ -175,11 +176,11 @@ export const policyLibrary = {
         'Verify the spouse’s employment and whether the same child’s allowance/subsidy has been claimed by anyone else. Make accurate declarations and disclose previous advances or claims.',
         'Follow the most recent NESTS authority and forwarding instructions before submission.'
       ]},
-      {title:'CEA/Hostel ceilings, distance and disability',page:'NESTS Annexure-A pages 4–6 · later DoPT updates',sources:['cea-nests-apr','cea-dopt-year','cea-portal'],points:[
+      {title:'CEA/Hostel ceilings, distance and disability',page:'NESTS Annexure-A pages 4–6 · later DoPT updates',sources:['cea-nests-apr','cea-dopt-year','cea-2026-faq','cea-portal'],points:[
         'The April 2025 extract lists historical monthly CEA and Hostel Subsidy figures after the January 2024 DA-linked increase. Do not treat those reproduced amounts as guaranteed current ceilings.',
         'Hostel Subsidy in the referenced material has additional conditions for qualifying residential hostels, distance from employee residence, lodging/boarding charges and supporting evidence; day boarding is not equivalent to hostel stay.',
         'Different rules apply to eligible children with disabilities, including enhanced ceilings, permitted home-based education in specified cases and age-related conditions.',
-        'DoPT’s 2024 updates cover the three pre-Class-I years and DA-linked allowance revisions. Check later orders and the actual travel/academic period before deciding the payable amount.'
+        'DoPT’s 2024 updates cover the three pre-Class-I years and DA-linked allowance revisions. The Department of Posts issued further DoPT-based FAQs on 2 April 2026, including a narrowly defined one-time NEP-2020 class repetition relaxation. Check the underlying order, NESTS adoption and actual academic year before deciding a payable amount.'
       ]}
     ]
   }

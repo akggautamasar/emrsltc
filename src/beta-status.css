@@ -1,0 +1,123 @@
+/* Beta status: the catalogue and letter builder remain accessible,
+   but users must not mistake their experimental drafts for official forms. */
+.beta-nav-tag,
+.beta-action-tag,
+.beta-status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(95, 225, 212, .52);
+  background: #d9f9f3;
+  color: #07665f;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .65px;
+  line-height: 1;
+  padding: 5px 7px;
+  white-space: nowrap;
+  text-shadow: none;
+}
+body .app .nav-links button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+}
+.beta-nav-tag {
+  background: rgba(49, 215, 197, .20);
+  border-color: rgba(94, 239, 223, .52);
+  color: #c5fff5;
+  font-size: 8px;
+  padding: 4px 5px;
+}
+.beta-action-wrap {
+  display: inline-flex;
+  position: relative;
+  isolation: isolate;
+  max-width: 100%;
+}
+.beta-action-tag {
+  position: absolute;
+  top: -9px;
+  right: -10px;
+  z-index: 4;
+  pointer-events: none;
+  border-color: rgba(233, 255, 251, .92);
+  box-shadow: 0 2px 9px rgba(4, 38, 68, .20);
+  padding: 5px 7px;
+}
+.beta-section-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 11px;
+}
+.beta-section-heading .beta-status-chip {
+  font-size: 10px;
+  padding: 7px 10px;
+}
+.beta-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin: 20px 0 23px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: linear-gradient(130deg, #f1fcfb 0%, #f7fafc 100%);
+  color: #24445c;
+  border: 1px solid #b6e7e0;
+  border-left: 4px solid #21b6a9;
+  box-shadow: 0 4px 15px rgba(12, 61, 91, .05);
+}
+.beta-notice-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #def5f1;
+  color: #087d76;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.beta-notice-copy {
+  flex: 1;
+  min-width: 0;
+}
+.beta-notice-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  line-height: 1.45;
+}
+.beta-notice-title strong {
+  color: #123550;
+  font-size: 14px;
+  font-weight: 850;
+}
+.beta-notice-copy p {
+  margin: 7px 0 0;
+  color: #536c7c;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.beta-notice-info {
+  color: #409e98;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+@media (max-width: 1120px) and (min-width: 761px) {
+  .beta-nav-tag { letter-spacing: 0; font-size: 7px; padding: 3px 4px; }
+  body .app .nav-links button { gap: 3px; }
+}
+@media (max-width: 760px) {
+  .beta-notice { padding: 13px 12px; gap: 10px; }
+  .beta-notice-info { display: none; }
+  .beta-notice-title strong { font-size: 13px; }
+  .beta-nav-tag { margin-left: 6px; }
+}
+@media (max-width: 400px) {
+  .beta-notice-icon { width: 30px; height: 30px; }
+  .beta-action-tag { right: -5px; }
+}

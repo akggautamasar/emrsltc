@@ -121,3 +121,5 @@ export default async function handler(req, res) {
     count:records.length, records
   });
 }
+
+export {parseOfficial, extractPdf};

@@ -149,7 +149,7 @@ async function generateExcel(type,d){
   add('CERTIFICATE — EMRS KARANJIYA',true);taCertificate.forEach(x=>add(x));add('Signature / Designation of employee: ___________________');add('CERTIFICATE TO BE FURNISHED BY CONTROLLING OFFICER',true);taOfficer.forEach(x=>add(x));add('Dated: '+dateText(d.controllingDate)+'     PRINCIPAL: ___________________');
  }
  ws.getRow(1).font={bold:true,size:14,name:'Arial'};
- ws.headerFooter.oddFooter={center:{text:'Page &P of &N'}};
+ ws.headerFooter.oddFooter='&CPage &P of &N';
  const array=await book.xlsx.writeBuffer();download(new Blob([array],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),fileName(type,d,'xlsx'));
 }
 export async function exportClaim(type,d,format){if(format==='pdf')return generatePdf(type,d);if(format==='docx')return generateWord(type,d);if(format==='xlsx')return generateExcel(type,d);throw Error('Unsupported format')}

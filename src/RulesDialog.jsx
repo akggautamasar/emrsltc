@@ -102,6 +102,19 @@ export default function RulesDialog({form, onClose}) {
           <span><FileText size={15}/> {policy.sources.length} official reference links</span>
           <span><Info size={15}/> No automatic sanction or entitlement</span>
         </div>
+        <div className="policy-quick-pdfs">
+          <strong><FileText size={16}/> Original circulars</strong>
+          {policy.sources.slice(0, 2).map(source => (
+            <a key={source.id} href={source.url} target="_blank"
+               rel="noopener noreferrer" title={source.title}>
+              {source.agency}<ExternalLink size={12}/>
+            </a>
+          ))}
+          <button type="button" className="policy-source-jump"
+            onClick={() => document.getElementById('policy-original-sources')?.scrollIntoView({behavior:'smooth',block:'start'})}>
+            View all {policy.sources.length} sources ↓
+          </button>
+        </div>
         <div className="rules-search">
           <Search size={17}/>
           <input aria-label={`Search ${policy.title} rules`} value={query}

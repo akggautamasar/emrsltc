@@ -1,0 +1,310 @@
+/*
+ * Unified navy-blue glass action system for EMRS Claim Forms.
+ * Matches the Explore Forms galaxy capsule from the provided reference.
+ * Only changes presentation: all existing click handlers and document exports
+ * remain owned by the original React components.
+ *
+ * Full-surface .card-main and the brand are deliberately excluded:
+ * those are semantic click targets containing readable card/brand content,
+ * not standalone action buttons.
+ */
+:root {
+  --emrs-glass-bg:
+    radial-gradient(ellipse 75% 75% at 13% 2%, rgba(94, 205, 244, .35), transparent 67%),
+    radial-gradient(ellipse 70% 100% at 57% 110%, rgba(0, 18, 61, .34), transparent 80%),
+    linear-gradient(113deg, rgba(13, 97, 156, .97) 0%, rgba(3, 51, 99, .97) 42%, rgba(8, 77, 133, .96) 76%, rgba(60, 140, 187, .91) 100%);
+  --emrs-glass-border: rgba(219, 250, 255, .91);
+  --emrs-glass-shadows:
+    inset 0 1.7px 1.2px rgba(255, 255, 255, .96),
+    inset 0 -3px 6px rgba(2, 20, 61, .53),
+    inset 1px 0 2px rgba(240, 255, 255, .42),
+    inset -1px 0 2px rgba(223, 251, 255, .52),
+    0 8px 17px rgba(6, 33, 69, .23);
+}
+
+/* Recolor the EXISTING three galaxy-orb buttons. Their 46px height and
+   per-label widths are intentionally unchanged. */
+body .app .primary-btn.glass-pill,
+body .app .dashboard .primary-btn.glass-pill {
+  color: #ffffff;
+  background: var(--emrs-glass-bg);
+  border-color: var(--emrs-glass-border);
+  text-shadow: 0 1px 3px rgba(0, 21, 50, .67);
+  box-shadow: var(--emrs-glass-shadows), 0 0 11px rgba(51, 185, 231, .14);
+}
+body .app .primary-btn.glass-pill .glass-pill__label,
+body .app .primary-btn.glass-pill .glass-pill__arrow {
+  color: #ffffff;
+}
+body .app .primary-btn.glass-pill:hover,
+body .app .dashboard .primary-btn.glass-pill:hover {
+  border-color: #ffffff;
+  box-shadow: var(--emrs-glass-shadows), 0 0 15px rgba(39, 213, 223, .38), 0 11px 20px rgba(8, 35, 71, .28);
+}
+
+/* Controls with different semantics retain their dimensions, content and actions.
+   This selector intentionally excludes the clickable card body and logo. */
+body .app :is(
+  .primary-btn:not(.glass-pill),
+  .nav-links button,
+  .mobile-menu,
+  .card-bottom .rules-card-button,
+  .card-bottom .start-card-button,
+  .start-card-button,
+  .editor-rules-button,
+  .back-button,
+  .toolbar-actions button,
+  .add-button,
+  .remove-button,
+  .download-buttons button,
+  .rules-close,
+  .rules-done,
+  .rules-pdf-link,
+  .rule-group summary
+) {
+  position: relative;
+  isolation: isolate;
+  color: #ffffff;
+  background: var(--emrs-glass-bg);
+  border: 1px solid var(--emrs-glass-border);
+  border-radius: 999px;
+  box-shadow: var(--emrs-glass-shadows);
+  text-decoration: none;
+  text-shadow: 0 1px 2px rgba(0, 24, 59, .45);
+  -webkit-backdrop-filter: blur(12px) saturate(155%);
+  backdrop-filter: blur(12px) saturate(155%);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+}
+
+/* Upper-edge white highlight follows each pill's rounded geometry. */
+body .app :is(
+  .primary-btn:not(.glass-pill),
+  .nav-links button,
+  .mobile-menu,
+  .card-bottom .rules-card-button,
+  .card-bottom .start-card-button,
+  .start-card-button,
+  .editor-rules-button,
+  .back-button,
+  .toolbar-actions button,
+  .add-button,
+  .remove-button,
+  .download-buttons button,
+  .rules-close,
+  .rules-done,
+  .rules-pdf-link,
+  .rule-group summary
+)::before {
+  content: "";
+  position: absolute;
+  inset: 1px 5px auto;
+  height: 33%;
+  border-radius: 999px 999px 70% 70%;
+  border-top: 1px solid rgba(255, 255, 255, .62);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .19), transparent);
+  pointer-events: none;
+}
+
+/* Compact rule/form actions: navy glass with white labels and white icons. */
+body .app .form-card .card-bottom {
+  gap: 8px;
+  flex-wrap: wrap;
+}
+body .app .form-card .card-bottom :is(.rules-card-button, .start-card-button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+  color: #ffffff;
+}
+body .app :is(.rules-card-button, .start-card-button, .editor-rules-button) svg {
+  color: #ffffff;
+  flex-shrink: 0;
+}
+/* All Other Forms / Applications catalogues also use start-card-button. */
+body .app .start-card-button {
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 16px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* Navigation: retain button dimensions and open/active behaviour. */
+body .app .nav-links button {
+  padding: 9px 11px;
+  font-size: 12px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+body .app .nav-links button.active {
+  color: #ffffff;
+  border-color: rgba(89, 239, 225, .98);
+  box-shadow: var(--emrs-glass-shadows), 0 0 0 2px rgba(42, 205, 198, .20);
+}
+body .app .mobile-menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+  border-radius: 13px;
+}
+body .app .mobile-menu svg { color: #ffffff; }
+
+/* Editors, utility controls and print/export actions. */
+body .app .back-button {
+  padding: 9px 14px;
+  min-height: 38px;
+  width: fit-content;
+  max-width: 100%;
+  gap: 8px;
+  font-size: 12px;
+}
+body .app .editor-rules-button { padding: 10px 14px; min-height: 40px; }
+body .app .toolbar-actions button { padding: 9px 12px; min-height: 36px; font-size: 11px; }
+body .app .add-button {
+  padding: 10px 15px;
+  min-height: 40px;
+  border-style: solid;
+}
+body .app .remove-button {
+  padding: 0;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+}
+body .app .download-buttons button {
+  width: 100%;
+  padding: 12px 13px;
+  border-radius: 15px;
+  min-height: 60px;
+  text-align: left;
+}
+body .app .download-buttons button:nth-child(2),
+body .app .download-buttons button:nth-child(3) {
+  color: #ffffff;
+}
+body .app .download-buttons button :is(b, small, svg) {
+  color: #ffffff;
+}
+body .app .download-buttons button small {
+  opacity: .82;
+}
+
+/* Rules dialog: readable button treatments, including PDF links. */
+body .app .rules-close {
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+}
+body .app .rules-done,
+body .app .rules-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 39px;
+  padding: 9px 14px;
+  font-size: 12px;
+  font-weight: 800;
+}
+body .app .rule-group summary {
+  cursor: pointer;
+  border-radius: 9px;
+  padding: 14px 15px;
+}
+body .app .rule-group[open] summary {
+  color: #ffffff;
+  background: var(--emrs-glass-bg);
+}
+body .app .rule-group summary :is(strong, small, svg) {
+  color: #ffffff;
+}
+body .app .rule-group summary small { opacity: .80; }
+
+body .app :is(
+  .primary-btn,
+  .nav-links button,
+  .mobile-menu,
+  .rules-card-button,
+  .start-card-button,
+  .editor-rules-button,
+  .back-button,
+  .toolbar-actions button,
+  .add-button,
+  .remove-button,
+  .download-buttons button,
+  .rules-close,
+  .rules-done,
+  .rules-pdf-link
+):hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #ffffff;
+  filter: brightness(1.10);
+  text-decoration: none;
+}
+body .app :is(
+  .primary-btn,
+  .nav-links button,
+  .mobile-menu,
+  .rules-card-button,
+  .start-card-button,
+  .editor-rules-button,
+  .back-button,
+  .toolbar-actions button,
+  .add-button,
+  .remove-button,
+  .download-buttons button,
+  .rules-close,
+  .rules-done,
+  .rules-pdf-link
+):active:not(:disabled) {
+  transform: translateY(1px) scale(.985);
+  filter: brightness(.96);
+}
+body .app button:focus-visible,
+body .app .rules-pdf-link:focus-visible,
+body .app .rule-group summary:focus-visible {
+  outline: 3px solid #38dccc;
+  outline-offset: 3px;
+}
+body .app :is(button, a):disabled {
+  cursor: not-allowed;
+  opacity: .48;
+}
+@media (max-width: 1120px) and (min-width: 761px) {
+  body .app .nav-links { gap: 3px; }
+  body .app .nav-links button { padding: 9px 7px; font-size: 11px; }
+}
+@media (max-width: 760px) {
+  body .app .mobile-menu { display: inline-flex; }
+  body .app .nav-links.open button { display: block; width: 100%; text-align: left; margin-bottom: 5px; }
+  body .app .rules-footer .rules-pdf-link { justify-content: center; }
+}
+@media (max-width: 520px) {
+  body .app .form-card .card-bottom :is(.rules-card-button, .start-card-button) {
+    font-size: 11.5px;
+    min-height: 37px;
+    padding: 8px 10px;
+  }
+  body .app .toolbar-actions button { padding: 8px 9px; }
+}
+@media (hover: none) {
+  body .app :is(.primary-btn, button, .rules-pdf-link):hover:not(:disabled) {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .app :is(button, a, summary) { transition: none !important; }
+}

@@ -19,3 +19,37 @@ body{background:radial-gradient(ellipse 90% 48% at 80% -12%,#d5e7ff 0%,transpare
 button:focus-visible{outline:3px solid #508be9;outline-offset:3px}
 @media(hover:none){.form-card:hover,.primary-btn:hover,.card-bottom button:hover,.download-buttons button:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){.form-card,.side-card,.form-section,.repeat-card,.steps>div,.primary-btn,.start-card-button,.rules-card-button,.editor-rules-button,.download-buttons button,.nav-links button,.add-button{transition:none!important;transform:none!important}}
+
+/* October 2026: high-contrast navy + teal homepage */
+:root{--navy:#102b4d;--navy-deep:#091e38;--teal:#18b7a6;--teal-dark:#087e78}
+body{background:#f3f7fa;color:var(--navy)}
+.site-header{background:rgba(255,255,255,.96)!important;border-bottom:1px solid #dce8ee!important;box-shadow:0 5px 24px #0d294516!important}
+.brand-mark{background:linear-gradient(150deg,#163f67,#0b2748)!important;color:#fff!important;border:1px solid #28577b!important}
+.nav-links button.active{color:#087e78!important}
+.hero{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse 65% 85% at 100% 0%,#176c7a88,transparent 75%),radial-gradient(ellipse 55% 75% at 5% 110%,#0d768044,transparent 78%),linear-gradient(125deg,#091e38 0%,#123659 58%,#103e56 100%)!important;color:#fff!important}
+.hero:before{content:"";position:absolute;z-index:-1;inset:0;background-image:linear-gradient(#ffffff09 1px,transparent 1px),linear-gradient(90deg,#ffffff09 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,transparent,#000);pointer-events:none}
+.hero:after{content:"";position:absolute;z-index:-1;width:300px;height:300px;right:-110px;top:45px;border:1px solid #38e0cc55;border-radius:50%;box-shadow:0 0 0 45px #18b7a60b,0 0 0 100px #18b7a608;pointer-events:none}
+.hero .hero-copy,.hero .hero-copy p,.hero .hero-benefits,.hero .hero-benefits span{color:#d9eaf3!important}
+.hero .hero-copy h1,.hero h1{color:#fff!important;text-shadow:none!important}
+.hero h1 em{color:#49e2cf!important;-webkit-text-fill-color:#49e2cf!important;background:none!important;font-style:normal}
+.hero .eyebrow,.hero .eyebrow span{color:#64e7d4!important}
+.hero .eyebrow span{background:#28d6c0!important}
+.hero .hero-benefits svg{color:#45dfca!important}
+.hero .primary-btn{background:linear-gradient(145deg,#39ddc5,#0e9b99 55%,#087579)!important;border:1px solid #65f2de!important;color:#072c38!important;text-shadow:none!important;box-shadow:inset 0 2px 1px #ffffff8c,inset 0 -3px 7px #044f5d88,0 12px 30px #02172d70!important;font-weight:850}
+.hero .primary-btn:hover{box-shadow:inset 0 2px 1px #fff9,0 16px 34px #0007!important}
+.hero-paper{filter:drop-shadow(0 24px 45px #0006)}
+.dashboard{position:relative}
+.section-kicker{color:#0a8987!important;letter-spacing:.18em!important}
+.dash-heading h2,.how h2{color:#102b4d!important}
+.form-card{border:1px solid #d9e9ee!important;border-radius:22px!important;background:linear-gradient(160deg,#fff 0%,#f2f9fb 100%)!important;box-shadow:0 10px 30px #0e345118!important}
+.form-card:hover{border-color:#53c9c0!important;box-shadow:0 22px 40px #0b40562b!important}
+.form-card .card-icon{background:linear-gradient(145deg,#d8f8f2,#eaf6ff)!important;color:#0b7378!important;border-radius:17px}
+.form-card .card-type{color:#0c8885!important}
+.card-bottom .start-card-button{background:linear-gradient(145deg,#17c2b1,#0b8888)!important;border:1px solid #0c9d94!important;color:white!important;box-shadow:inset 0 1px 1px #ffffff66,0 7px 16px #00877e33}
+.card-bottom .rules-card-button{color:#174766!important;border:1px solid #d2e5eb!important}
+.dashboard>.primary-btn,.dashboard .primary-btn{background:linear-gradient(145deg,#194f73,#0d304f)!important;border-color:#2e6483!important}
+.form-count{background:#ddf8f2!important;color:#087e78!important;border:1px solid #a9e6dc!important}
+.steps>div{border-radius:18px!important}
+.steps>div>span{color:#0c9990!important}
+@media(max-width:760px){.hero-content{min-height:0!important}.hero-copy{padding:58px 0 62px!important}.hero h1{font-size:clamp(36px,9vw,48px)!important;line-height:1.13!important}.hero .hero-copy p{color:#d6e7f0!important;line-height:1.7!important}.hero .hero-benefits{gap:13px!important}.hero:after{width:180px;height:180px;right:-115px;top:65px}.dashboard{padding-top:44px!important}.form-card{min-height:0!important}}
+@media(prefers-reduced-motion:reduce){.hero *{scroll-behavior:auto!important}}

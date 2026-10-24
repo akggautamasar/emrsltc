@@ -8,7 +8,7 @@ A free, responsive, browser-based claim form portal for Eklavya Model Residentia
 2. **Medical Reimbursement** — employee/dependent medical **claim register** based on the uploaded one-page medical claim statement. The uploaded medical PDF is not an individual claim application; the dashboard identifies it as a register and does not invent statutory fields.
 3. **TA & DA Claim Form** — Travelling Allowance Bill based on the supplied EMRS Karanjiya 2-page TA proforma and the accompanying 15-sheet TA/DA sample workbook; trip rows, fares, mileage, daily allowance, actual expenses, net total and original certification sections.
 
-Each form can be downloaded in **PDF, Word (.docx), and Excel (.xlsx)**. Native editable Word tables and Excel cells; white print backgrounds. PDF uses native vector text and tables with A4 layout, and may paginate further when users add many entries.
+Each form can be downloaded in **PDF, Word (.docx), and Excel (.xlsx)**. Native editable Word tables and Excel cells; white print backgrounds. PDF uses native vector text and tables with A4 layout. **TA/DA exports are exactly two A4 landscape sides**: front bill (20 columns, journeys, totals, particulars and disbursement) and reverse certificate. Excel has two white print worksheets; choose **Print Entire Workbook**, double-sided, landscape, flip on short edge. Up to 14 TA/DA journey entries are supported per two-sided bill; exporting more than 14 raises an explicit error instead of omitting data. The daily allowance rate supports percent text, and an optional amount override prevents assuming an official entitlement calculation.
 
 ## Privacy
 

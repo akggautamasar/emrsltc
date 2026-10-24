@@ -1,0 +1,180 @@
+/* EMRSLTC functional glass capsules.
+   These replace only the three homepage CTAs, not form/export controls.
+   Dimensions match the original pill buttons; no iframe, WebGL stage or player UI. */
+.primary-btn.glass-pill {
+  --pill-w: 186px;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  width: var(--pill-w);
+  height: 46px;
+  min-height: 46px;
+  padding: 0 11px 0 9px;
+  gap: 5px;
+  border: 1px solid rgba(244,253,255,.83);
+  border-radius: 999px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #f7fdff;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 800;
+  text-shadow: 0 1px 5px rgba(0,29,66,.35);
+  background:
+    linear-gradient(135deg,rgba(238,252,255,.46) 0%,rgba(142,193,229,.24) 21%,rgba(34,81,132,.28) 47%,rgba(145,198,227,.30) 78%,rgba(238,252,255,.40) 100%);
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  box-shadow:
+    inset 0 1.5px 1px rgba(255,255,255,.98),
+    inset 0 -3px 7px rgba(7,31,73,.46),
+    inset 1px 0 5px rgba(244,253,255,.38),
+    inset -1px 0 4px rgba(244,253,255,.40),
+    0 7px 16px rgba(4,24,52,.29),
+    0 2px 2px rgba(3,18,38,.30);
+  transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  vertical-align: middle;
+}
+.primary-btn.glass-pill::before {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 62% 30% at 45% 3%,rgba(255,255,255,.70),transparent 89%),
+    linear-gradient(165deg,rgba(255,255,255,.24) 0%,transparent 29%,transparent 64%,rgba(9,39,83,.25) 100%);
+}
+.primary-btn.glass-pill::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  left: 16%;
+  right: 9%;
+  top: 2px;
+  height: 22%;
+  border-radius: 50% 50% 90% 90%;
+  border-top: 1px solid rgba(255,255,255,.80);
+  opacity: .65;
+  transform: rotate(-1deg);
+}
+.glass-pill--explore { --pill-w: 186px; }
+.glass-pill--other { --pill-w: 199px; }
+.glass-pill--applications { --pill-w: 174px; }
+
+.glass-pill__orb {
+  z-index: 2;
+  position: relative;
+  width: 29px;
+  height: 29px;
+  flex: 0 0 29px;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 31% 25%,rgba(205,249,255,.65),transparent 27%),
+    radial-gradient(circle at 66% 68%,#0063d6,#023a91 42%,#04235c 70%,#04122d 100%);
+  border: 1px solid rgba(202,249,255,.94);
+  box-shadow:
+    0 0 0 2px rgba(197,235,255,.20),
+    0 0 12px rgba(12,195,255,.65),
+    inset 1px 2px 4px rgba(255,255,255,.75),
+    inset -3px -4px 6px #001743;
+}
+.glass-pill__orb::before {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  inset: 1px;
+  pointer-events: none;
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 3px rgba(255,255,255,.8), inset -2px -3px 5px rgba(0,20,61,.55);
+}
+.glass-pill__orb::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  inset: 2px;
+  z-index: 3;
+  border-radius: 50%;
+  background-image:
+    radial-gradient(circle at 24% 40%,white 0 1px,transparent 1.5px),
+    radial-gradient(circle at 75% 22%,#c9f9ff 0 .8px,transparent 1.4px),
+    radial-gradient(circle at 69% 77%,white 0 .7px,transparent 1.2px),
+    radial-gradient(circle at 35% 80%,white 0 .6px,transparent 1.1px);
+  opacity: .85;
+}
+.glass-pill__nebula {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 40deg,transparent,rgba(3,17,78,.25),rgba(82,222,255,.78),#1566e8,transparent,rgba(0,185,244,.28),transparent);
+  filter: blur(3px);
+  animation: glass-orb-rotate 6.5s linear infinite;
+}
+.glass-pill__swirl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: visible;
+  filter: drop-shadow(0 0 2px #69eeff) drop-shadow(0 0 3px #72e9ff);
+  animation: glass-orb-rotate 8s linear infinite reverse;
+}
+.glass-pill__trail { opacity: .53; filter: blur(1px); }
+.glass-pill__label {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  white-space: nowrap;
+  text-align: center;
+  min-width: 0;
+}
+.glass-pill__arrow {
+  z-index: 2;
+  position: relative;
+  flex: 0 0 14px;
+  opacity: .96;
+  filter: drop-shadow(0 1px 1px #001c4240);
+}
+.dashboard .primary-btn.glass-pill {
+  color: #153c5a;
+  text-shadow: 0 1px 0 rgba(255,255,255,.72);
+  border-color: rgba(255,255,255,.98);
+  background:
+    linear-gradient(130deg,rgba(207,233,248,.86),rgba(235,251,254,.67) 26%,rgba(142,195,218,.60) 67%,rgba(226,248,254,.87));
+  box-shadow:
+    inset 0 1.5px 2px #fff,
+    inset 0 -3px 6px rgba(35,86,122,.21),
+    inset 1px 0 6px #fff8,
+    0 8px 20px #17365324;
+}
+.primary-btn.glass-pill:hover {
+  transform: translateY(-2px);
+  border-color: #fff;
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.98),
+    inset 0 -4px 9px rgba(4,36,78,.33),
+    0 12px 24px rgba(6,34,70,.35),
+    0 0 13px rgba(71,222,237,.30);
+}
+.primary-btn.glass-pill:active {
+  transform: translateY(1px) scale(.98);
+}
+.primary-btn.glass-pill:focus-visible {
+  outline: 3px solid #35ddce;
+  outline-offset: 4px;
+}
+@keyframes glass-orb-rotate { to {transform:rotate(360deg)} }
+@media (prefers-reduced-motion:reduce) {
+  .glass-pill__nebula,.glass-pill__swirl {animation:none!important}
+  .primary-btn.glass-pill {transition:none}
+}
+@media (hover:none) {
+  .primary-btn.glass-pill:hover {transform:none}
+}

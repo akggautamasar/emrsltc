@@ -53,9 +53,18 @@ async function parseSalaryExcel(file){
   const empCol=columns.findIndex(h=>['empid','employee id','emp id'].includes(h.toLowerCase()));
   const nameCol=columns.findIndex(h=>['employee','employee name','name'].includes(h.toLowerCase()));
   if(empCol<0||nameCol<0)throw Error('Row 1 must contain EmpId (or Employee ID) and Employee (or Name) columns.');
-  const validColumns=columns.map((header,i)=>({header,i})).filter(x=>x.header);
-  if(new Set(validColumns.map(x=>x.header.toLowerCase())).size!==validColumns.length)
-    throw Error('Two salary-sheet columns have the same header. Please rename duplicates before uploading.');
+  // Payroll exports may legitimately repeat headings (e.g. Basic Pay twice).
+  // Preserve every original column, disambiguating only its display/storage key.
+  const seenHeaders=new Set();
+  const validColumns=columns.map((header,i)=>{
+    if(!header)return null;
+    let unique=header, suffix=2;
+    while(seenHeaders.has(unique.toLocaleLowerCase('en'))){
+      unique=header+' ('+suffix+++')';
+    }
+    seenHeaders.add(unique.toLocaleLowerCase('en'));
+    return {header:unique,i};
+  }).filter(Boolean);
   const getIndex = options => columns.findIndex(h=>options.includes(h.toLowerCase()));
   const deptCol=getIndex(['department']),desigCol=getIndex(['designation']),netCol=getIndex(['net payable','net pay']);
   const records=[];

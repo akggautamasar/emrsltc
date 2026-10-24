@@ -38,6 +38,21 @@ This is a form-preparation aid. Downloaded claims must be verified against appli
 
 **EMRS Claim Forms by worksbeyond** · Made with ❤️ by AiR
 
+## NESTS Circular Finder (live official index)
+
+Open **Circular Finder** from the dashboard or navigation, or visit `#circulars` on the website.
+
+- **Publisher-backed listings:** the server-side `/api/circulars` endpoint reads [NESTS General Circulars](https://nests.tribal.gov.in/show_content.php?lang=1&level=1&ls_id=938&lid=373) and [For Serving Employees](https://nests.tribal.gov.in/show_content.php?lang=1&level=1&ls_id=851&lid=487). On 24 October 2026 these yielded 244 + 43 = 287 published rows, each with a real NESTS PDF link. The count will change when NESTS updates its pages.
+- Search by subject/keywords, circular number, partial known reference or exact issue date. Choose section, topic, sort order and optional reference/date filters.
+- Open only PDF links extracted from the publisher's HTML; when missing, link to the appropriate official NESTS listing. Never fabricate filenames such as `Circular_123.pdf`.
+- Save bookmarks and personal reference entries on the same device (browser `localStorage`); these personal entries are distinctly marked unverified. Export filtered results to CSV for office records.
+- The viewer automatically retrieves updated publisher metadata; it caches the last successful response locally to remain useful if NESTS briefly fails. Vercel's CDN caches API results for four hours.
+- **Search scope:** official title/subject, published circular number and date, plus known source-library metadata or user-entered personal notes. This does **not** yet OCR or full-text-index every original PDF; unknown internal reference numbers or keywords occurring only deep inside scanned circulars may not match. Do not represent the 287 PDFs as fully read or their subject metadata as legal advice.
+
+The user's draft `NESTS EMRS Circular Smart Finder.txt` inspired the UI and filters, but its generated `#1–179` records, guessed reference numbers and constructed PDF filenames were **not** imported as authentic documents. The official NESTS index is the authoritative data source.
+
+Code: `src/CircularFinder.jsx`, `src/circular-finder.css`, `api/circulars.js`. Tests: `npm run test` (also run during production build).
+
 ## Rules viewer: LTC, TA/DA, Medical, CEA/Hostel (24 October 2026 update)
 
 All four major claim forms now share an indexed, searchable **Official Claim Rules & Circulars** dialog, opened by **Rules** on each dashboard card or **View Rules** inside the form editor.

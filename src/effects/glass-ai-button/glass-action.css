@@ -6,3 +6,10 @@
 .emrs-glass-actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin-top:28px}
 @media(max-width:760px){.emrs-glass-action{height:142px;width:100%;max-width:420px}.emrs-glass-action--compact{height:130px}.emrs-glass-actions{gap:12px}}
 @media(prefers-reduced-motion:reduce){.emrs-glass-action iframe{transition:none}}
+
+/* Button-only crop: keep original ThreeUI renderer but conceal its demo stage. */
+.emrs-glass-action{width:min(100%,420px);height:124px!important;border-radius:999px!important;box-shadow:none!important;background:transparent!important;overflow:hidden}
+.emrs-glass-action iframe{inset:auto!important;position:absolute!important;width:142%!important;height:208%!important;left:-21%!important;top:-54%!important;max-width:none!important;background:transparent!important}
+.emrs-glass-fallback{border-radius:999px!important;background:linear-gradient(130deg,#a7c2d9,#718da9)!important;border:1px solid #d5e9fa!important;color:white!important;box-shadow:inset 0 2px 3px #ffffff99,0 7px 18px #0c2c4a25!important;font-size:16px!important}
+.emrs-glass-action--compact{width:min(100%,390px);height:116px!important}
+@media(max-width:760px){.emrs-glass-action{height:110px!important;max-width:400px}.emrs-glass-action--compact{height:104px!important}}

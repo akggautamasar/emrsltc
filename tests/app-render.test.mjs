@@ -17,7 +17,7 @@ test('EMRS dashboard and Circular Finder routes render without React reference e
   const savedLocation=globalThis.location;
   try {
     const {default:App}=await server.ssrLoadModule('/src/App.jsx');
-    for (const fragment of ['', 'circulars', 'ltc', 'medical', 'ta', 'cea']) {
+    for (const fragment of ['', 'circulars', 'ltc', 'medical', 'ta', 'cea', 'salary']) {
       globalThis.window={
         location:{hash:fragment?'#'+fragment:''},
         scrollTo:()=>{}
@@ -27,6 +27,11 @@ test('EMRS dashboard and Circular Finder routes render without React reference e
       assert.ok(html.length>100, fragment+': output empty');
       assert.match(html,/EMRS/, fragment+': header missing');
       if (fragment==='circulars') assert.match(html,/Circular Finder/, 'finder missing');
+      if (fragment==='salary') {
+        assert.match(html,/Salary Review/, 'salary feature missing');
+        assert.match(html,/sparkles-text/, 'salary heading sparkle missing');
+      }
+      if (!fragment) assert.match(html,/sparkles-text/, 'homepage headline sparkle missing');
     }
   } finally {
     if(savedWindow===undefined)delete globalThis.window;else globalThis.window=savedWindow;

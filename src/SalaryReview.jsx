@@ -6,6 +6,7 @@ import {
   LogOut, MessageCircle, PencilLine, Plus, Printer, RefreshCw, RotateCcw,
   Search, ShieldCheck, Sparkles, Trash2, UploadCloud, Users, Wallet, X, AlertCircle
 } from 'lucide-react';
+import SparklesText from './effects/sparkles-text/SparklesText.jsx';
 import './salary-review.css';
 
 const salaryApi = async (action, data=null, method=data===null?'GET':'POST') => {
@@ -351,7 +352,7 @@ export default function SalaryReview({onBack}){
     <div className="sr-toprow"><button className="back-button" type="button" onClick={onBack}><ArrowLeft size={16}/> Dashboard</button>
       <span><ShieldCheck size={16}/> EMRS salary verification</span></div>
     <section className="sr-hero"><div className="sr-hero-glow" aria-hidden="true"><Wallet size={80}/></div>
-      <div className="sr-kicker sr-kicker-light">EMRS EMPLOYEE SERVICES</div><h1>Salary Review <span>Before Publishing</span></h1>
+      <div className="sr-kicker sr-kicker-light">EMRS EMPLOYEE SERVICES</div><h1>Salary Review <span><SparklesText sparklesCount={6} colors={{first:'#71ede0',second:'#e3d9a3'}}>Before Publishing</SparklesText></span></h1>
       <p>A clear review process before the final monthly salary is published. Employees can verify their details, report discrepancies and receive office remarks.</p>
       <div className="sr-hero-points"><span><CheckCircle2 size={15}/> Employee confirmation</span><span><ShieldCheck size={15}/> Private salary records</span><span><CalendarDays size={15}/> Monthly review batches</span></div>
     </section>

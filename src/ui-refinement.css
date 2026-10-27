@@ -1,0 +1,36 @@
+/* UI/UX refinement: screen only; official print/export layout remains untouched. */
+@media screen {
+:root{--ui-navy:#112d4a;--ui-teal:#087f83;--ui-muted:#60738a}
+html{scroll-behavior:smooth}
+body{background:#f5f8fb;color:var(--ui-navy)}
+button,a,input,select{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #13a9aa;outline-offset:3px}
+.site-header{background:rgba(255,255,255,.96);backdrop-filter:blur(14px);box-shadow:0 3px 20px #163b5810}
+.nav{gap:clamp(12px,2vw,34px)}
+.nav-links button{border-radius:12px}
+.nav-links button.active{background:#e4f4f3;color:#075c63}
+.hero{background:radial-gradient(ellipse at 82% 16%,#256b7d 0%,transparent 43%),linear-gradient(120deg,#0c2745,#123d59 65%,#0b5960);color:#fff}
+.hero h1{max-width:730px;line-height:1.1}
+.hero h1 em{color:#9de8dc}
+.hero p{color:#e0ecf1}
+.hero-benefits{color:#e6f6f4}
+.primary-btn{border-radius:14px;background:linear-gradient(135deg,#e6fffa,#fff);color:#104d55;min-height:48px}
+.dashboard{padding-top:clamp(40px,6vw,78px)}
+.dash-heading h2{font-size:clamp(25px,3vw,35px)}
+.form-cards{gap:clamp(12px,2vw,24px)}
+.form-card{border:1px solid #e0e9ef;border-radius:20px;box-shadow:0 10px 35px #14344c0b;transition:transform .2s,box-shadow .2s,border-color .2s}
+.form-card:hover{transform:translateY(-4px);border-color:#8dd4ce;box-shadow:0 20px 42px #0d4d561b}
+.card-icon,.section-icon{border-radius:14px}
+.form-card h3{color:#15334c}
+.card-bottom{border-color:#e8eff2}
+.form-section,.side-card,.edit-toolbar{border-radius:18px;border-color:#e1e9ee;box-shadow:0 8px 30px #173c5809}
+.field label{font-size:12px;color:#314b60}
+.field input,.field select{min-height:44px;background:#fff;border-color:#ccdce5;border-radius:10px}
+.field input:focus,.field select:focus{border-color:#0d9192;box-shadow:0 0 0 3px #13a7a51e}
+.toolbar-actions button,.add-button{min-height:40px}
+.paper-preview{transform:none;border-radius:3px}
+.editor-title h1{font-size:clamp(25px,3.2vw,36px)}
+@media(max-width:900px){.hero-content{gap:20px}.editor-layout{grid-template-columns:minmax(0,1fr)}.sticky-side{position:static}.form-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.container{width:min(100% - 28px,1200px)}.nav{min-height:66px}.hero,.hero-content{min-height:unset}.hero-content{display:block}.hero-copy{padding:52px 0}.hero h1{font-size:clamp(34px,9vw,46px);letter-spacing:-1.5px}.hero-paper{display:none}.form-cards,.steps,.how{grid-template-columns:1fr}.dashboard{padding:42px 0}.form-card{min-height:unset;padding:20px}.dash-heading{align-items:start;flex-wrap:wrap}.how{gap:18px;padding:38px 0}.editor-title{align-items:flex-start;gap:12px;flex-wrap:wrap}.edit-toolbar{align-items:flex-start;flex-wrap:wrap}.toolbar-actions{flex-wrap:wrap}.form-section{padding:17px}.field-grid{grid-template-columns:1fr}.field-wide{grid-column:auto}.footer-inner{flex-wrap:wrap;padding:20px 0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+}
